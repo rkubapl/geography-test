@@ -80,7 +80,7 @@ function App() {
         <div style={{display: "flex"}}>
             <Canvas points={randomly} />
             <div className="questions">
-                <p id="coords">tekst</p>
+                {/*<p id="coords">tekst</p>*/}
                 <h1>Pytania</h1>
                 {/*<input point={point} inputChange={value => input(point.label, value)} />*/}
                 {randomly.map(point =>

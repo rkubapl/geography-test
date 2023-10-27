@@ -38,14 +38,14 @@ const Canvas = params => {
             // alert(canvas.height)
             const yOffset = (canvas.height - (img.height * ratio))/2
 
-            function printMousePos(event) {
-                const x = Math.floor(event.clientX/ratio);
-                if(x > 3000) return;
-
-                document.getElementById("coords").innerHTML = "x: " + x + ", y: " + Math.floor((event.clientY-yOffset)/ratio);
-                // alert(event.clientX);
-            }
-            document.addEventListener("click", printMousePos);
+            // function printMousePos(event) {
+            //     const x = Math.floor(event.clientX/ratio);
+            //     if(x > 3000) return;
+            //
+            //     document.getElementById("coords").innerHTML = "x: " + x + ", y: " + Math.floor((event.clientY-yOffset)/ratio);
+            //     // alert(event.clientX);
+            // }
+            // document.addEventListener("click", printMousePos);
 
 
             // console.log(yOffset)
