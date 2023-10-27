@@ -1,4 +1,4 @@
-import React, {useRef, useEffect, useCallback, useState} from 'react'
+import React, {useRef, useEffect, useCallback} from 'react'
 
 const Canvas = params => {
 
@@ -12,6 +12,7 @@ const Canvas = params => {
 
         window.addEventListener('resize', drawStuff, false);
         return () => window.removeEventListener('resize', drawStuff);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params.points])
 
     const drawStuff = useCallback(() => {
@@ -19,6 +20,7 @@ const Canvas = params => {
         const ctx = canvas.getContext('2d')
 
         drawStuffFn(canvas, ctx)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params.points]);
 
     function drawStuffFn(canvas, ctx) {

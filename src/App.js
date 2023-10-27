@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Canvas from "./containers/Canvas";
 import {useEffect, useState} from "react";
@@ -7,11 +6,11 @@ import Input from "./containers/Input";
 function App() {
     const locations = 10;
 
-    const originalPoints = [
-        {x: 200, y: 400, name: "Nizina Wielkopolska"},
-        {x: 500, y: 220, name: "Nizina Małopolska"},
-        {x: 300, y: 350, name: "Nizina Śląska"}
-    ];
+    // const originalPoints = [
+    //     {x: 200, y: 400, name: "Nizina Wielkopolska"},
+    //     {x: 500, y: 220, name: "Nizina Małopolska"},
+    //     {x: 300, y: 350, name: "Nizina Śląska"}
+    // ];
 
     const [randomly, setRandomly] = useState([])
     const [correctAnswersCount, setCorrectAnswersCount] = useState([])
@@ -21,7 +20,7 @@ function App() {
 
     const [inputs, setInputs] = useState({})
 
-    const [points, setPoints] = useState([
+    const [points] = useState([
         {x: 1252, y: 528, name: "Pobrzeże Koszalińskie"},
         {x: 2426, y: 800, name: "Pojezierze Mazurskie"},
         {x: 1223, y: 947, name: "Pojezierze Pomorskie"},
@@ -51,6 +50,7 @@ function App() {
         })
 
         setCorrectAnswersCount(correctAnswers)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [showAnswer])
 
 
@@ -66,6 +66,7 @@ function App() {
 
             setRandomly(prevRandomly => [...prevRandomly, {label: i+1, ...splicedPoint}])
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     function input(label, input) {
