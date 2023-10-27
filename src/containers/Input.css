@@ -1,0 +1,29 @@
+input {
+    border-radius: 4px;
+    padding: 7px;
+    border: 2px solid #eee;
+}
+
+.correct {
+    background-color: #aaff00;
+}
+
+.invalid {
+    background-color: #e83715;
+}
+
+.question {
+    padding-top: 3px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+label {
+
+}
+
+.answer {
+    font-weight: 300;
+    font-size: .95rem;
+}

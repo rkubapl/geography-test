@@ -4,8 +4,6 @@ import {useEffect, useState} from "react";
 import Input from "./containers/Input";
 
 function App() {
-    // const locations = 10;
-
     const originalPoints = [
         {x: 1252, y: 528, name: "Pobrzeże Koszalińskie"},
         {x: 2426, y: 800, name: "Pojezierze Mazurskie"},
@@ -30,9 +28,6 @@ function App() {
     const [randomly, setRandomly] = useState([])
     const [correctAnswersCount, setCorrectAnswersCount] = useState([])
     const [showAnswer, setShowAnswer] = useState(false)
-
-    // const [isGameOver, setIsGameOver] = useState(false)
-
     const [inputs, setInputs] = useState({})
 
     const [points] = useState(JSON.parse(JSON.stringify(originalPoints)));
@@ -55,20 +50,21 @@ function App() {
     useEffect(() => {
         let copyPoints = points;
 
+        const randomPoints = [];
+
         for (let i = 0; i < originalPoints.length+1; i++) {
             if(copyPoints.length === 0) break;
             let randomPoint = Math.floor(Math.random()*copyPoints.length);
 
             const splicedPoint = copyPoints.splice(randomPoint, 1)[0]
 
-            setRandomly(prevRandomly => [...prevRandomly, {label: i+1, ...splicedPoint}])
+            randomPoints.push({label: i+1, ...splicedPoint})
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+        setRandomly(randomPoints)
     }, [])
 
     function input(label, input) {
-        // alert(label)
-        // alert(input)
         setInputs(prevInputs => ({...prevInputs, [label]: input}))
     }
 
@@ -77,16 +73,16 @@ function App() {
         <div style={{display: "flex"}}>
             <Canvas points={randomly} />
             <div className="questions">
-                {/*<p id="coords">tekst</p>*/}
-                <h1>Pytania</h1>
+                <h1>Test z krain geograficznych w Polsce</h1>
                 <span>Wpisz w pole tekstowe nazwy krain geograficznych odpowiadające podanym cyfrom na mapie po lewej stronie!<br/> Jeśli cyfry na mapie się nie załadowały odśwież stronę.</span>
-                {/*<input point={point} inputChange={value => input(point.label, value)} />*/}
-                {randomly.map(point =>
-                    <Input showAnswer={showAnswer} data={{correctAnswer: point.name, label: point.label}} value={inputs[point.label]} handleUpdateInput={input} />
-                )
-                }
+                <div className="inputs">
+                    {randomly.map(point =>
+                        <Input showAnswer={showAnswer} data={{correctAnswer: point.name, label: point.label}} value={inputs[point.label]} handleUpdateInput={input} />
+                    )
+                    }
+                </div>
                 <button onClick={() => setShowAnswer(true)} >Pokaż odpowiedzi</button>
-                {showAnswer && (<p>Uzyskano {correctAnswersCount}/{randomly.length} punktów!<br/>Aby zagrać ponownie odśwież stronę.</p>)}
+                {showAnswer && (<p className="results">Uzyskano {correctAnswersCount}/{randomly.length} punktów!<br/>Aby zagrać ponownie odśwież stronę.</p>)}
             </div>
         </div>
     </div>

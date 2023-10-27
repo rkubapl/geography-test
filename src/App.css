@@ -7,3 +7,37 @@ canvas { display:block; } /* To remove the scrollbars */
 .questions {
     padding: 20px;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
+
+* {
+    font-family: 'Inter', sans-serif;
+}
+
+h1 {
+    font-weight: 800;
+}
+
+span {
+    font-weight: 400;
+}
+
+button {
+    border-style: none;
+    background-color: #eee;
+    padding: 10px 15px;
+    border-radius: 6px;
+
+    font-size: .9rem;
+    cursor: pointer;
+}
+
+.inputs {
+    margin: 10px 0
+}
+
+.results {
+    margin-top: 5px;
+    font-size: .9rem;
+    font-weight: 300;
+}
