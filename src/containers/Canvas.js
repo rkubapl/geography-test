@@ -33,12 +33,14 @@ const Canvas = params => {
     useEffect(() => {
         window.addEventListener('resize', drawStuff, false);
         return () => window.removeEventListener('resize', drawStuff);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         console.log("POINTS UPDATED")
         console.log(params.points)
         drawStuff()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params.points])
 
 

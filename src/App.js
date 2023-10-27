@@ -62,6 +62,7 @@ function App() {
         }
 
         setRandomly(randomPoints)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     function input(label, input) {
