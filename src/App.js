@@ -71,10 +71,10 @@ function App() {
 
   return (
     <div className="App">
-        <div className="notify">
+      {/* <div className="notify">
             <img src="/cant-phone.svg" style={{width: "110px"}} alt="przekreślony telefon" />
             <span className="notifyText">Strona działa tylko na komputerze!</span>
-        </div>
+        </div> */}
         <div style={{display: "flex", width: "100%"}}>
             <Canvas points={randomly} />
             <div className="questions">
