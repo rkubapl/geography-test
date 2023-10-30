@@ -77,18 +77,18 @@ function App() {
         </div>
         <div style={{display: "flex", width: "100%"}}>
             <Canvas points={randomly} />
-            <div className="questions">
-                <h1>Test z krain geograficznych w Polsce</h1>
-                <span>Wpisz w pole tekstowe nazwy krain geograficznych odpowiadające podanym cyfrom na mapie po lewej stronie!<br/> Jeśli cyfry na mapie się nie załadowały odśwież stronę.</span>
-                <div className="inputs">
-                    {randomly.map(point =>
-                        <Input showAnswer={showAnswer} data={{correctAnswer: point.name, label: point.label}} value={inputs[point.label]} handleUpdateInput={input} />
-                    )
-                    }
-                </div>
-                <button onClick={() => setShowAnswer(true)} >Pokaż odpowiedzi</button>
-                {showAnswer && (<p className="results">Uzyskano {correctAnswersCount}/{randomly.length} punktów!<br/>Aby zagrać ponownie odśwież stronę.</p>)}
-            </div>
+            {/*<div className="questions">*/}
+            {/*    <h1>Test z krain geograficznych w Polsce</h1>*/}
+            {/*    <span>Wpisz w pole tekstowe nazwy krain geograficznych odpowiadające podanym cyfrom na mapie po lewej stronie!<br/> Jeśli cyfry na mapie się nie załadowały odśwież stronę.</span>*/}
+            {/*    <div className="inputs">*/}
+            {/*        {randomly.map(point =>*/}
+            {/*            <Input showAnswer={showAnswer} data={{correctAnswer: point.name, label: point.label}} value={inputs[point.label]} handleUpdateInput={input} />*/}
+            {/*        )*/}
+            {/*        }*/}
+            {/*    </div>*/}
+            {/*    <button onClick={() => setShowAnswer(true)} >Pokaż odpowiedzi</button>*/}
+            {/*    {showAnswer && (<p className="results">Uzyskano {correctAnswersCount}/{randomly.length} punktów!<br/>Aby zagrać ponownie odśwież stronę.</p>)}*/}
+            {/*</div>*/}
         </div>
     </div>
   );
