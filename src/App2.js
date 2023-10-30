@@ -29,17 +29,17 @@ export const App2 = () => {
     const [invalidAttempts, setInvalidAttempts] = useState(0)
 
     const [correctAnswersCount, setCorrectAnswersCount] = useState(0)
-    const [showAnswer, setShowAnswer] = useState(false)
-    const [inputs, setInputs] = useState({})
+    // const [showAnswer, setShowAnswer] = useState(false)
+    // const [inputs, setInputs] = useState({})
 
     const [points, setPoints] = useState(shuffleArray(JSON.parse(JSON.stringify(originalPoints))));
 
-    useEffect(() => {
-        // setPoints(shuffleArray(JSON.parse(JSON.stringify(originalPoints))));
-
-        // alert(points.length)
-        // alert("Kliknij " + points[nowPoint].name)
-    }, [])
+    // useEffect(() => {
+    //     // setPoints(shuffleArray(JSON.parse(JSON.stringify(originalPoints))));
+    //
+    //     // alert(points.length)
+    //     // alert("Kliknij " + points[nowPoint].name)
+    // }, [])
 
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -54,30 +54,7 @@ export const App2 = () => {
         if(isGameOver) countPoints()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isGameOver])
-    //
-    //
-    // //Generate points
-    // useEffect(() => {
-    //     let copyPoints = points;
-    //
-    //     const randomPoints = [];
-    //
-    //     for (let i = 0; i < originalPoints.length+1; i++) {
-    //         if(copyPoints.length === 0) break;
-    //         let randomPoint = Math.floor(Math.random()*copyPoints.length);
-    //
-    //         const splicedPoint = copyPoints.splice(randomPoint, 1)[0]
-    //
-    //         randomPoints.push({label: i+1, ...splicedPoint})
-    //     }
-    //
-    //     setRandomly(randomPoints)
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [])
 
-    // function input(label, input) {
-    //     setInputs(prevInputs => ({...prevInputs, [label]: input}))
-    // }
 
     function handleClick(index) {
         if(isGameOver) return;
@@ -162,8 +139,6 @@ export const App2 = () => {
         return image
     })
 
-    const [markerOneCoords, setMarkerOneCoords] = useState({x: 100, y: 200})
-    const [markerTwoCoords, setMarkerTwoCoords] = useState({x: 500, y: 500})
     return (
         <div style={{height: '100vh'}}>
             { !isGameOver
@@ -190,8 +165,6 @@ export const App2 = () => {
                             size={300}
                             markerKey={`marker-${index}`}
                             coords={{x: point.x, y: point.y}}
-                            onDragTick={setMarkerTwoCoords}
-                            onDragEnd={setMarkerTwoCoords}
                             image={chooseImage(point.state)}
                             onClick={() => handleClick(index)}
                         />
