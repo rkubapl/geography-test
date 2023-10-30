@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, {useRef, useEffect} from 'react'
 
 const Canvas = params => {

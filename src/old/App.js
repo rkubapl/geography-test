@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import './App.css';
 import Canvas from "./containers/Canvas";
 import {useEffect, useState} from "react";
