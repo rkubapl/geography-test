@@ -22,12 +22,16 @@ const regionsPoints = [
 
 const megaregionyPoints = [{"x":168,"y":165,"name":"Pozaalpejska Europa Środkowa"},{"x":346,"y":77,"name":"Niż Wschodnioeuropejski"},{"x":297,"y":336,"name":"Karpaty, Podkarpacie i Nizina Panońska"}]
 
-const prowincjePoints = [{"x":58,"y":54,"name":"Pobrzeża Południowobałtyckie"},{"x":209,"y":56,"name":"Pobrzeża Południowo-bałtyckie"},{"x":298,"y":47,"name":"Pobrzeże Wschodniobałtyckie"},{"x":290,"y":71,"name":"Pojezierze Wschodniobałtyckie"},{"x":368,"y":126,"name":"Wysoczyzny Podlasko-Białoruskie"},{"x":386,"y":228,"name":"Polesie"},{"x":410,"y":284,"name":"Wyżyna Wołyńsko-Podolska"},{"x":356,"y":261,"name":"Wyżyna Lubelsko-Lwowska"},{"x":266,"y":266,"name":"Wyżyna Małopolska"},{"x":205,"y":289,"name":"Wyżyna Śląsko-Krakowska"},{"x":337,"y":299,"name":"Podkarpacie Północne"},{"x":239,"y":345,"name":"Zewnętrzne Karpaty Zachodnie"},{"x":247,"y":374,"name":"Centralne Karpaty Zachodnie"},{"x":356,"y":373,"name":"Zewnętrzne Karpaty Wschodnie (Beskidy Wschodnie)"},{"x":67,"y":231,"name":"Niziny Sasko-Łużyckie"},{"x":88,"y":272,"name":"Sudety z Przedgorzem Sudeckim"},{"x":216,"y":202,"name":"Niziny Środkowopolskie"},{"x":129,"y":116,"name":"Pojezierza Południowobałtyckie"}]
+const podprowincjePoints = [{"x":58,"y":54,"name":"Pobrzeża Południowobałtyckie"},{"x":209,"y":56,"name":"Pobrzeża Południowo-bałtyckie"},{"x":298,"y":47,"name":"Pobrzeże Wschodniobałtyckie"},{"x":290,"y":71,"name":"Pojezierze Wschodniobałtyckie"},{"x":368,"y":126,"name":"Wysoczyzny Podlasko-Białoruskie"},{"x":386,"y":228,"name":"Polesie"},{"x":410,"y":284,"name":"Wyżyna Wołyńsko-Podolska"},{"x":356,"y":261,"name":"Wyżyna Lubelsko-Lwowska"},{"x":266,"y":266,"name":"Wyżyna Małopolska"},{"x":205,"y":289,"name":"Wyżyna Śląsko-Krakowska"},{"x":337,"y":299,"name":"Podkarpacie Północne"},{"x":239,"y":345,"name":"Zewnętrzne Karpaty Zachodnie"},{"x":247,"y":374,"name":"Centralne Karpaty Zachodnie"},{"x":356,"y":373,"name":"Zewnętrzne Karpaty Wschodnie (Beskidy Wschodnie)"},{"x":67,"y":231,"name":"Niziny Sasko-Łużyckie"},{"x":88,"y":272,"name":"Sudety z Przedgorzem Sudeckim"},{"x":216,"y":202,"name":"Niziny Środkowopolskie"},{"x":129,"y":116,"name":"Pojezierza Południowobałtyckie"}]
+
+
+const prowincjePoints = [{"x":179,"y":161,"name":"Niż Środkowoeuropejski"},{"x":85,"y":271,"name":"Masyw Czeski"},{"x":279,"y":272,"name":"Wyżyny Polskie"},{"x":351,"y":87,"name":"Niż Wschodniobałtycko-Białoruski"},{"x":409,"y":281,"name":"Wyżyny Ukraińskie"},{"x":290,"y":331,"name":"Karpaty Zachodnie z Podkarpaciem Zachodnim i Północnym"},{"x":357,"y":374,"name":"Karpaty Wschodnie z Podkarpaciem Wschodnim"}]
 
 const tests = {
     "krainy": {name: "Krainy geograficzne", points: regionsPoints, map: "mapa-1.png", pointSize: 300},
     "megaregiony": {name: "Megaregiony", points: megaregionyPoints, map: "mapa-2.jpg", pointSize: 100},
     "prowincje": {name: "Prowincje", points: prowincjePoints, map: "mapa-2.jpg", pointSize: 70},
+    "podprowincje": {name: "Podrowincje", points: podprowincjePoints, map: "mapa-2.jpg", pointSize: 70},
 }
 
 export default tests

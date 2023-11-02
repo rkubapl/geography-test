@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import { Map, Marker } from 'react-canvas-map'
 import "./GeoTest.css"
 import {useParams} from "react-router-dom";
@@ -8,11 +8,12 @@ import {sendResultAPI} from "./utils/api.ts";
 
 
 export const GeoTest = () => {
+    const debugMode = false;
     const { testId } = useParams()
 
     const test = tests[testId] || []
 
-    // const [createdPoints, setCreatedPoints] = useState([])
+    const [createdPoints, setCreatedPoints] = useState([])
 
     const [startTime, setStartTime] = useState(0);
     const [finishTime, setFinishTime] = useState(0);
@@ -132,14 +133,14 @@ export const GeoTest = () => {
         setErrWhenUploading(false)
     }
 
-    // const handleMapClick = useCallback(coords => {
-    //     const prompt = window.prompt("Podaj nazwę");
-    //
-    //     const point = {x: Math.floor(coords.x), y: Math.floor(coords.y), name: prompt}
-    //
-    //     setCreatedPoints(prevPoints => [...prevPoints, point])
-    //     // alert(JSON.stringify(coords))
-    // }, [])
+    const handleMapClick = useCallback(coords => {
+        const prompt = window.prompt("Podaj nazwę");
+
+        const point = {x: Math.floor(coords.x), y: Math.floor(coords.y), name: prompt}
+
+        setCreatedPoints(prevPoints => [...prevPoints, point])
+        // alert(JSON.stringify(coords))
+    }, [])
 
     function calculatePoints(time, accuracy, timeLimit, maxPoints) {
         if(time > timeLimit) return 0;
@@ -160,21 +161,11 @@ export const GeoTest = () => {
                     setResultUploaded(true)
                 }
             }).catch(() => setErrWhenUploading(true))
-
-        // fetch("http://localhost:3000/api/result/create", {
-        //     method: 'POST',
-        //     headers: {Authorization: `Bearer ${token}`, 'Content-Type': 'application/json'},
-        //     body: JSON.stringify({testId, points: finPoints, time, accuracy: accuracy*100})
-        // }).then(resp => resp.json())
-        //     .then(json => {
-        //         if(json.success) {
-        //             setResultUploaded(true)
-        //         }
-        //     }).catch(() => setErrWhenUploading(true))
     }
 
     return (
         <div style={{height: '100vh'}}>
+            {debugMode && JSON.stringify(createdPoints)}
             { !isGameOver && points.length > 0
                 &&
                 (<div className="card">
@@ -196,7 +187,7 @@ export const GeoTest = () => {
             }
             <Map
                 image={"/maps/" + test.map}
-                // onClick={handleMapClick}
+                onClick={debugMode && handleMapClick}
             >
                 {points.map((point, index) => (
                         <Marker
