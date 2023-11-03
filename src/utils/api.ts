@@ -23,7 +23,7 @@ export function handleUserAPI(mode, nickname, password) {
 }
 
 export function getUserInfo(token) {
-    return fetch(`${apiUrl}/api/user/user`, {
+    return fetch(`${apiUrl}/api/user/info`, {
         method: 'POST',
         headers: {Authorization: `Bearer ${token}`}})
 }

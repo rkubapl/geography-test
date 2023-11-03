@@ -22,6 +22,12 @@
     width: 500px;
 
     text-align: center;
+    cursor: pointer;
+}
+
+.flip {
+    top: initial !important;
+    bottom: 2%;
 }
 
 h1 {
@@ -43,4 +49,16 @@ h1 {
     h1 {
         font-size: 1.5rem;
     }
+}
+
+.small {
+    font-size: .8rem;
+}
+
+.tries {
+    font-size: .95rem;
+}
+
+.pointName {
+    font-size: 1.5rem;
 }

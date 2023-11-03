@@ -30,6 +30,7 @@ export const GeoTest = () => {
 
 
     const [points, setPoints] = useState([]);
+    const [flip, setFlip] = useState(false);
 
     useEffect(() => {
         setPoints(shuffleArray(JSON.parse(JSON.stringify(test.points))));
@@ -168,10 +169,12 @@ export const GeoTest = () => {
             {debugMode && JSON.stringify(createdPoints)}
             { !isGameOver && points.length > 0
                 &&
-                (<div className="card">
-                    <span>Kliknij w</span>
-                    <h1>{!isGameOver && points[nowPoint].name}</h1>
-                    <span>Próba {invalidAttempts}/3</span>
+                (<div className={`card ${flip ? 'flip' : ""}`} onClick={() => setFlip(prevFlip => !prevFlip)}>
+                    <span className="medium">Kliknij w</span>
+                    <h1 className="pointName">{points[nowPoint].name}</h1>
+                    <span className="tries">Próba {invalidAttempts}/3</span>
+                    <br />
+                    <span className="small">Klinij w kartę aby przenieść ją na drugą stronę ekranu</span>
                 </div>)
             }
             {
