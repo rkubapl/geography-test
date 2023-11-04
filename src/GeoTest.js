@@ -130,12 +130,17 @@ export const GeoTest = () => {
     const [highlightPoint] = useState(() => loadImage('/svg/point-highlight.svg'))
     const [kindaPoint] = useState(() => loadImage('/svg/point-kinda.svg'))
 
-    function chooseImage(state) {
-        if(state === "highlight") return highlightPoint;
-        if(state === "correct") return correctPoint;
-        if(state === "kinda") return kindaPoint;
-        if(state === "invalid") return invalidPoint;
-        else return point;
+    function chooseImage(state, index) {
+        if (learnMode) {
+            if(index === learnModeIndex) return highlightPoint;
+            else return point;
+        } else {
+            if(state === "highlight") return highlightPoint;
+            if(state === "correct") return correctPoint;
+            if(state === "kinda") return kindaPoint;
+            if(state === "invalid") return invalidPoint;
+            else return point;
+        }
     }
 
     function reset() {
@@ -214,7 +219,7 @@ export const GeoTest = () => {
                             size={test.pointSize}
                             markerKey={`marker-${index}`}
                             coords={{x: point.x, y: point.y}}
-                            image={chooseImage(point.state)}
+                            image={chooseImage(point.state, index)}
                             onClick={() => handleClick(index)}
                         />
                     ))

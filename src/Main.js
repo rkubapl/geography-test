@@ -62,7 +62,8 @@ export const Main = () => {
                     <Link to={"/test/" + key}>{tests[key].name}</Link> (<Link to={"/leaderboard/" + key}>Tablica wyników</Link>)
                 </div>
             ))}
-
+            <br />
+            <Link to="/poradnik">Poradnik</Link>
             <br />
             { userData ?
                 (
@@ -93,7 +94,7 @@ export const Main = () => {
                     </div>
                 )
             }
-            <br />
+            < br/>
         </div>
     )
 }

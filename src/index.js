@@ -9,12 +9,17 @@ import {
 } from "react-router-dom";
 import {Main} from "./Main";
 import {Leaderboard} from "./Leaderboard";
+import {Poradnik} from "./Poradnik";
 
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Main />,
+    },
+    {
+        path: "/poradnik",
+        element: <Poradnik />,
     },
     {
         path: "/leaderboard/:testId",
