@@ -1,14 +1,14 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import { Map, Marker } from 'react-canvas-map'
 import "./GeoTest.css"
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {getCookie} from "./utils/cookies";
 import tests from "./dane";
 import {sendResultAPI} from "./utils/api.ts";
 
 
 export const GeoTest = () => {
-    const debugMode = false;
+    const creatorMode = false;
     const { testId } = useParams()
 
     const test = tests[testId] || []
@@ -30,7 +30,7 @@ export const GeoTest = () => {
 
 
     const [points, setPoints] = useState([]);
-    const [flip, setFlip] = useState(false);
+    const [flip, setFlip] = useState(test.defaultFlip || false);
 
     useEffect(() => {
         setPoints(shuffleArray(JSON.parse(JSON.stringify(test.points))));
@@ -59,6 +59,11 @@ export const GeoTest = () => {
 
     function handleClick(index) {
         if(isGameOver) return;
+
+        if(creatorMode) {
+            alert(points[index].name)
+            return;
+        }
 
         let state;
 
@@ -140,7 +145,7 @@ export const GeoTest = () => {
         const point = {x: Math.floor(coords.x), y: Math.floor(coords.y), name: prompt}
 
         setCreatedPoints(prevPoints => [...prevPoints, point])
-        // alert(JSON.stringify(coords))
+        setPoints(prevPoints => [...prevPoints, point])
     }, [])
 
     function calculatePoints(time, accuracy, timeLimit, maxPoints) {
@@ -153,7 +158,7 @@ export const GeoTest = () => {
 
     function sendResult(finPoints, time, accuracy) {
         const token = getCookie('token');
-        if(!token) return;
+        // if(!token) return;
 
         sendResultAPI(token, testId, finPoints, time, accuracy*100)
             .then(resp => resp.json())
@@ -166,7 +171,7 @@ export const GeoTest = () => {
 
     return (
         <div style={{height: '100vh'}}>
-            {debugMode && JSON.stringify(createdPoints)}
+            {creatorMode && JSON.stringify(createdPoints)}
             { !isGameOver && points.length > 0
                 &&
                 (<div className={`card ${flip ? 'flip' : ""}`} onClick={() => setFlip(prevFlip => !prevFlip)}>
@@ -184,13 +189,15 @@ export const GeoTest = () => {
                     <h1>{correctAnswersCount}/{points.length}</h1>
                     <span>{Math.floor((correctAnswersCount/points.length)*100)}% - {Math.round((finishTime-startTime)/1000*10)/10}s - {finalPoints} punktów</span>
                     <br />
-                    {getCookie("token") !== "" && <div><span>{resultUploaded ? "Przesłano wyniki!" : (errWhenUploading ? "Błąd podczas przesyłania wyniku" : "Przesyłanie wyniku...")}</span><br /></div>}
+                    <span>{resultUploaded ? "Przesłano wyniki!" : (errWhenUploading ? "Błąd podczas przesyłania wyniku" : "Przesyłanie wyniku...")}</span><br />
                     <span onClick={reset} className="link">Kliknij aby zresetować</span>
+                    <br />
+                    <Link className="link" to="/">Strona główna</Link>
                 </div>)
             }
             <Map
                 image={"/maps/" + test.map}
-                onClick={debugMode && handleMapClick}
+                onClick={creatorMode && handleMapClick}
             >
                 {points.map((point, index) => (
                         <Marker

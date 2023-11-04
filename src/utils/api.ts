@@ -1,9 +1,12 @@
 const apiUrl = process.env.REACT_APP_API_URL;
 
 export function sendResultAPI(token, testId, points, time, accuracy) {
+    let headers = {Authorization: `Bearer ${token}`, 'Content-Type': 'application/json'};
+    if(token && token !== "") headers.Authorization = `Bearer ${token}`;
+
     return fetch(`${apiUrl}/api/result/create`, {
         method: 'POST',
-        headers: {Authorization: `Bearer ${token}`, 'Content-Type': 'application/json'},
+        headers,
         body: JSON.stringify({testId, points, time, accuracy})
     })
 }

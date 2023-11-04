@@ -77,7 +77,7 @@ export const Main = () => {
                     <div>
                         <div>
                             <h2>Logowanie</h2>
-                            <span>Umożliwia to zapisywanie twoich wyników w testach i branie udziału w tablicach wyników!</span>
+                            <span>Umożliwia zapisywanie twoich wyników pod nickiem.<br />Wyniki niezalogowanych użytkowników widnieją w tablicach wyników jako "Anonim".</span>
                             <br />
                             <label>Nickname: </label>
                             <input type="text" value={nickname} onChange={e => setNickname(e.target.value)} />
