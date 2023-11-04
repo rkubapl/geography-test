@@ -33,7 +33,7 @@ export const GeoTest = () => {
     const [flip, setFlip] = useState(test.defaultFlip || false);
 
     const [learnMode, setLearnMode] = useState(false)
-    const [learnModeIndex, setLearnModeIndex] = useState()
+    const [learnModeIndex, setLearnModeIndex] = useState(-1)
 
 
     useEffect(() => {
@@ -187,7 +187,7 @@ export const GeoTest = () => {
                 &&
                 (<div className={`card ${flip ? 'flip' : ""}`} onClick={() => setFlip(prevFlip => !prevFlip)}>
                     <span className="medium">{learnMode ? "Kliknąłeś w" : "Kliknij w"}</span>
-                    <h1 className="pointName">{learnMode ? (learnModeIndex ? points[learnModeIndex].name : "Kliknij w punkt na mapie") : points[nowPoint].name}</h1>
+                    <h1 className="pointName">{learnMode ? (learnModeIndex !== -1 ? points[learnModeIndex].name : "Kliknij w punkt na mapie") : points[nowPoint].name}</h1>
                     {!learnMode && <span className="tries">Próba {invalidAttempts}/3<br /></span>}
                     <span className="small">Klinij w kartę aby przenieść ją na drugą stronę ekranu</span>
                 </div>)
