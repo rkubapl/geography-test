@@ -32,6 +32,10 @@ export const GeoTest = () => {
     const [points, setPoints] = useState([]);
     const [flip, setFlip] = useState(test.defaultFlip || false);
 
+    const [learnMode, setLearnMode] = useState(false)
+    const [learnModeIndex, setLearnModeIndex] = useState()
+
+
     useEffect(() => {
         setPoints(shuffleArray(JSON.parse(JSON.stringify(test.points))));
         setStartTime(Date.now())
@@ -57,11 +61,17 @@ export const GeoTest = () => {
     }, [isGameOver])
 
 
+    useEffect(() => {
+        reset()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [learnMode])
+
+
     function handleClick(index) {
         if(isGameOver) return;
 
-        if(creatorMode) {
-            alert(points[index].name)
+        if(creatorMode || learnMode) {
+            setLearnModeIndex(index)
             return;
         }
 
@@ -171,14 +181,14 @@ export const GeoTest = () => {
 
     return (
         <div style={{height: '100vh'}}>
+            <span className="link fixed" onClick={() => setLearnMode(prevState => !prevState)}>Tryb nauki: {learnMode ? "ON" : "OFF"}</span>
             {creatorMode && JSON.stringify(createdPoints)}
             { !isGameOver && points.length > 0
                 &&
                 (<div className={`card ${flip ? 'flip' : ""}`} onClick={() => setFlip(prevFlip => !prevFlip)}>
-                    <span className="medium">Kliknij w</span>
-                    <h1 className="pointName">{points[nowPoint].name}</h1>
-                    <span className="tries">Próba {invalidAttempts}/3</span>
-                    <br />
+                    <span className="medium">{learnMode ? "Kliknąłeś w" : "Kliknij w"}</span>
+                    <h1 className="pointName">{learnMode ? (learnModeIndex ? points[learnModeIndex].name : "Kliknij w punkt na mapie") : points[nowPoint].name}</h1>
+                    {!learnMode && <span className="tries">Próba {invalidAttempts}/3<br /></span>}
                     <span className="small">Klinij w kartę aby przenieść ją na drugą stronę ekranu</span>
                 </div>)
             }
