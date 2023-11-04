@@ -6,7 +6,7 @@ export const User = () => {
     const { nickname } = useParams()
 
     const [data, setData] = useState();
-    const [error, setError] = useState();
+    const [error, setError] = useState("");
 
     useEffect(() => {
         getUserData(nickname)
@@ -18,6 +18,7 @@ export const User = () => {
                     setError(json.message)
                 }
             }).catch(() => setError("Network error"))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
