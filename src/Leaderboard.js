@@ -33,7 +33,7 @@ export const Leaderboard = () => {
                 {leaderboardData.map((result, index) => (
                     <tr>
                         <td>{index+1}</td>
-                        <td>{result.user}</td>
+                        <td>{result.anonym ? <span>{result.user}</span> : <Link className="link" to={`/user/${result.user}`}>{result.user}</Link>}</td>
                         <td>{result.points.toString()}</td>
                         <td>{(result.time).toString()}s</td>
                         <td>{(result.accuracy).toString()}%</td>

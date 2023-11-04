@@ -10,6 +10,7 @@ import {
 import {Main} from "./Main";
 import {Leaderboard} from "./Leaderboard";
 import {Poradnik} from "./Poradnik";
+import {User} from "./User";
 
 
 const router = createBrowserRouter([
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
     {
         path: "/test/:testId",
         element: <GeoTest />,
+    },
+    {
+        path: "/user/:nickname",
+        element: <User />,
     },
 ]);
 

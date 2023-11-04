@@ -71,6 +71,8 @@ export const Main = () => {
                         <h2>Zalogowano!</h2>
                         <label>Nickname: {userData.nickname}</label>
                         <br />
+                        <Link to={`/user/${userData.nickname}`}>Statystyki</Link>
+                        <br />
                         <button onClick={logout}>Wyloguj</button>
                     </div>
                 )   :

@@ -30,3 +30,7 @@ export function getUserInfo(token) {
         method: 'POST',
         headers: {Authorization: `Bearer ${token}`}})
 }
+
+export function getUserData(nickname) {
+    return fetch(`${apiUrl}/api/result/results?nickname=${nickname}`)
+}
