@@ -29,7 +29,7 @@ const tests = {
     "krainy": {name: "Krainy geograficzne", points: regionsPoints, map: "mapa-1.png", pointSize: 300},
     "megaregiony": {name: "Megaregiony", points: megaregionyPoints, map: "mapa-2.jpg", pointSize: 100},
     "prowincje": {name: "Prowincje", points: prowincjePoints, map: "mapa-2.jpg", pointSize: 70},
-    "podprowincje": {name: "Podrowincje", points: podprowincjePoints, map: "mapa-2.jpg", pointSize: 70},
+    "podprowincje": {name: "Podprowincje", points: podprowincjePoints, map: "mapa-2.jpg", pointSize: 70},
     "pradoliny": {name: "Pradoliny", points: pradolinyPoints, map: "mapa-pradoliny.jpg", pointSize: 70, defaultFlip: true},
 }
 
