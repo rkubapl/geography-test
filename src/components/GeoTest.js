@@ -2,9 +2,9 @@ import React, {useCallback, useEffect, useState} from 'react'
 import { Map, Marker } from 'react-canvas-map'
 import "./GeoTest.css"
 import {Link, useParams} from "react-router-dom";
-import {getCookie} from "./utils/cookies";
-import tests from "./dane";
-import {sendResultAPI} from "./utils/api.ts";
+import {getCookie} from "../utils/cookies";
+import tests from "../data.js";
+import {sendResultAPI} from "../utils/api.ts";
 
 
 export const GeoTest = () => {

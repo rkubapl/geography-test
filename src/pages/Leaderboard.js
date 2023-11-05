@@ -1,6 +1,6 @@
 import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getLeaderboardData} from "./utils/api.ts";
+import {getLeaderboardData} from "../utils/api.ts";
 
 export const Leaderboard = () => {
     const { testId } = useParams()

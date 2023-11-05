@@ -1,6 +1,6 @@
 import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getUserData} from "./utils/api.ts";
+import {getUserData} from "../utils/api.ts";
 
 export const User = () => {
     const { nickname } = useParams()

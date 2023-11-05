@@ -1,16 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import {GeoTest} from "./GeoTest";
+import {GeoTest} from "./components/GeoTest";
 
 import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
-import {Main} from "./Main";
-import {Leaderboard} from "./Leaderboard";
-import {Poradnik} from "./Poradnik";
-import {User} from "./User";
+import {Main} from "./pages/Main";
+import {Leaderboard} from "./pages/Leaderboard";
+import {Poradnik} from "./pages/Poradnik";
+import {User} from "./pages/User";
 
 
 const router = createBrowserRouter([

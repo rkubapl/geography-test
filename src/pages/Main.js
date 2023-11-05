@@ -1,8 +1,8 @@
 import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {deleteCookie, setCookie} from "./utils/cookies";
-import tests from "./dane";
-import {getUserInfo, handleUserAPI} from "./utils/api.ts";
+import {deleteCookie, setCookie} from "../utils/cookies";
+import tests from "../data.js";
+import {getUserInfo, handleUserAPI} from "../utils/api.ts";
 
 export const Main = () => {
     const [userData, setUserData] = useState(undefined)
