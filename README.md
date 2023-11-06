@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# Geography Test Web App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Geography Test is a web app that helps you learn geography maps by allowing you to create and take your own tests on geographical regions. It's similar to Seterra, but you have the abbility to add your own tests.
 
-## Available Scripts
+You can try the live version of the app here:
+- [geografia.rkuba.pl](https://geografia.rkuba.pl)
+- [geography-test.vercel.app](https://geography-test.vercel.app)
+- [geography-test.pages.dev](https://geography-test.pages.dev)
 
-In the project directory, you can run:
+# Screenshots
+![test](https://i.imgur.com/NucaKEn.png)
 
-### `npm start`
+# Story
+I created this app to prepare for a geography test. Some time ago the teacher recommended learning European countries using Seterra and I liked it. However, I couldn't find test for geographical regions of Poland, so I decided to create my own website.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Setup
+### Requirements
+- [NodeJS](https://nodejs.org/) and NPM (I used Node 18.13.0)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Setup
+- Download or clone the repository
+- Install dependencies using `npm install`
+- Run development version using `npm run dev` or build the app using `npm run build`.  After the build, you can find the production-ready version in the `build/` directory.
 
-### `npm test`
+# How to create your own test
+- Edit `data.js` file by adding your own test and points. Add an test with empty points to `tests` object.
+```js
+const tests = {
+    "countries": {name: "European Countries", points: [], map: "map-eu.png", pointSize: 300}
+}
+```
+- Edit the `GeoTest.js` file by setting `creatorMode` variable to `true`.
+- Go to test f.e. `/test/countries` and add the points by clicking the map. 
+- Paste array of points (you can find it on the top of website) to the test object
+```js
+const tests = {
+    "countries": {name: "European Countries", points: [{"x":168,"y":165,"name":"Poland"},{"x":324,"y":53,"name":"Italy"}], map: "map-eu.png", pointSize: 300}
+}
+```
+- Adjust points size to your needs (`pointSize` variable).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## License
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The Geography Test app is licensed under the [MIT License](https://github.com/rkubapl/geography-test/blob/master/LICENSE). Feel free to modify and use it according to your needs.
