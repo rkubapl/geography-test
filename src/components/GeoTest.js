@@ -1,17 +1,13 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import { Map, Marker } from 'react-canvas-map'
 import "./GeoTest.css"
-import {Link, useParams} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {getCookie} from "../utils/cookies";
 import {sendResultAPI} from "../utils/api.ts";
 
 
 export const GeoTest = params => {
-    console.log(params)
     const creatorMode = false;
-    // const { testId } = useParams()
-
-    // const test = tests[testId] || []
 
     const [createdPoints, setCreatedPoints] = useState([])
 

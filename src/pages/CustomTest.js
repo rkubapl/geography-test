@@ -1,5 +1,4 @@
-import {Link, useSearchParams} from "react-router-dom";
-import tests from "../data.js";
+import {useSearchParams} from "react-router-dom";
 import {GeoTest} from "../components/GeoTest";
 import {isJson} from "../utils";
 import {decode} from "base-64";
@@ -9,7 +8,7 @@ export const CustomTest = () => {
     const [test, setTest] = useState()
     const [error, setError] = useState("")
 
-    const [searchParams, setSearchParams] = useSearchParams()
+    const [searchParams] = useSearchParams()
     const data = searchParams.get('data');
 
     useEffect(() => {
@@ -24,6 +23,7 @@ export const CustomTest = () => {
         } else {
             setError("Nieprawidłowy link!")
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (test ? <GeoTest imageURL={test.i} points={test.p} /> : <span>{error ? {error} : "Ładowanie danych..."}</span>)

@@ -211,7 +211,7 @@ export const Creator = () => {
 
     const save = (
         <div>
-            <a onClick={() => setStep(2)}>Powrót do edytowania testu</a>
+            <span className="link" onClick={() => setStep(2)}>Powrót do edytowania testu</span>
             <h1>Użyj poniższego linku aby skorzystać z testu!</h1>
             <input style={{"width": "90vw"}} value={encodedDataURL} />
             <br />

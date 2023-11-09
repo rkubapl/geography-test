@@ -1,4 +1,4 @@
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import tests from "../data.js";
 import {GeoTest} from "../components/GeoTest";
 
