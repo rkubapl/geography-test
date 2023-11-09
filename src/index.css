@@ -27,7 +27,7 @@ table,th,td {
 }
 
 
-.link, .link:visited {
+a, .link, .link:visited {
   color: #0077b6;
   cursor: pointer;
   text-decoration: underline;

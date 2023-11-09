@@ -59,7 +59,7 @@ export const Main = () => {
             <br />
             {Object.keys(tests).map((key, _) => (
                 <div>
-                    <Link to={"/test/" + key}>{tests[key].name}</Link> (<Link to={"/leaderboard/" + key}>Tablica wyników</Link>)
+                    <Link to={"/test/" + key}>{tests[key].n}</Link> (<Link to={"/leaderboard/" + key}>Tablica wyników</Link>)
                 </div>
             ))}
             <br />

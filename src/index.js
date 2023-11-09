@@ -11,6 +11,9 @@ import {Main} from "./pages/Main";
 import {Leaderboard} from "./pages/Leaderboard";
 import {Poradnik} from "./pages/Poradnik";
 import {User} from "./pages/User";
+import {Creator} from "./components/Creator";
+import {Test} from "./pages/Test";
+import {CustomTest} from "./pages/CustomTest";
 
 
 const router = createBrowserRouter([
@@ -28,11 +31,19 @@ const router = createBrowserRouter([
     },
     {
         path: "/test/:testId",
-        element: <GeoTest />,
+        element: <Test />,
+    },
+    {
+        path: "/customTest",
+        element: <CustomTest />,
     },
     {
         path: "/user/:nickname",
         element: <User />,
+    },
+    {
+        path: "/create",
+        element: <Creator />,
     },
 ]);
 

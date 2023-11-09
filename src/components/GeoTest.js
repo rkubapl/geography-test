@@ -3,15 +3,15 @@ import { Map, Marker } from 'react-canvas-map'
 import "./GeoTest.css"
 import {Link, useParams} from "react-router-dom";
 import {getCookie} from "../utils/cookies";
-import tests from "../data.js";
 import {sendResultAPI} from "../utils/api.ts";
 
 
-export const GeoTest = () => {
+export const GeoTest = params => {
+    console.log(params)
     const creatorMode = false;
-    const { testId } = useParams()
+    // const { testId } = useParams()
 
-    const test = tests[testId] || []
+    // const test = tests[testId] || []
 
     const [createdPoints, setCreatedPoints] = useState([])
 
@@ -30,14 +30,14 @@ export const GeoTest = () => {
 
 
     const [points, setPoints] = useState([]);
-    const [flip, setFlip] = useState(test.defaultFlip || false);
+    const [flip, setFlip] = useState(params.f || false);
 
     const [learnMode, setLearnMode] = useState(false)
     const [learnModeIndex, setLearnModeIndex] = useState(-1)
 
 
     useEffect(() => {
-        setPoints(shuffleArray(JSON.parse(JSON.stringify(test.points))));
+        setPoints(shuffleArray(JSON.parse(JSON.stringify(params.points))));
         setStartTime(Date.now())
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -144,7 +144,7 @@ export const GeoTest = () => {
     }
 
     function reset() {
-        setPoints(shuffleArray(JSON.parse(JSON.stringify(test.points))));
+        setPoints(shuffleArray(JSON.parse(JSON.stringify(params.points))));
         setIsGameOver(false)
         setInvalidAttempts(0)
         setNowPoint(0)
@@ -175,7 +175,7 @@ export const GeoTest = () => {
         const token = getCookie('token');
         // if(!token) return;
 
-        sendResultAPI(token, testId, finPoints, time, accuracy*100)
+        sendResultAPI(token, params.testId, finPoints, time, accuracy*100)
             .then(resp => resp.json())
             .then(json => {
                 if(json.success) {
@@ -192,7 +192,7 @@ export const GeoTest = () => {
                 &&
                 (<div className={`card ${flip ? 'flip' : ""}`} onClick={() => setFlip(prevFlip => !prevFlip)}>
                     <span className="medium">{learnMode ? "Kliknąłeś w" : "Kliknij w"}</span>
-                    <h1 className="pointName">{learnMode ? (learnModeIndex !== -1 ? points[learnModeIndex].name : "Kliknij w punkt na mapie") : points[nowPoint].name}</h1>
+                    <h1 className="pointName">{learnMode ? (learnModeIndex !== -1 ? points[learnModeIndex].n : "Kliknij w punkt na mapie") : points[nowPoint].n}</h1>
                     {!learnMode && <span className="tries">Próba {invalidAttempts}/3<br /></span>}
                     <span className="small">Klinij w kartę aby przenieść ją na drugą stronę ekranu</span>
                 </div>)
@@ -211,12 +211,12 @@ export const GeoTest = () => {
                 </div>)
             }
             <Map
-                image={"/maps/" + test.map}
+                image={params.imageURL}
                 onClick={creatorMode && handleMapClick}
             >
                 {points.map((point, index) => (
                         <Marker
-                            size={test.pointSize}
+                            size={params.pointSize}
                             markerKey={`marker-${index}`}
                             coords={{x: point.x, y: point.y}}
                             image={chooseImage(point.state, index)}
