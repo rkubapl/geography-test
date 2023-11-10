@@ -37,7 +37,7 @@ const fortnitePoints = [
     {n: "Płacząca Puszcza", x: 1669, y: 645},
     {n: "Samotne Schronisko", x: 1858, y: 954},
     {n: "Oaza Odpoczynku", x: 1696, y: 1548},
-    {n: "Wypasiona Wydma", x: 1221, y: 1058},
+    {n: "Wypasiona Wyrwa", x: 1221, y: 1058},
     {n: "Sklepowa Sadyba", x: 1512, y: 1158},
     {n: "Zgubne Ziemie", x: 1223, y: 1615},
     {n: "Pagody Pomyślności", x: 1146, y: 1897},
