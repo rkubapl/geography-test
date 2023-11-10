@@ -1,8 +1,6 @@
 import {useParams} from "react-router-dom";
 import tests from "../data.js";
 import {GeoTest} from "../components/GeoTest";
-import {useState} from "react";
-import {isURL} from "../utils";
 
 export const Test = () => {
     const { testId } = useParams()

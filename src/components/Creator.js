@@ -2,7 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react'
 import "./Creator.css"
 import {Map, Marker} from "react-canvas-map";
 import {encode,decode} from 'base-64';
-import {allowedDomains, isAllowedDomain, isURL, isValidUrl} from "../utils";
+import {allowedDomains, isAllowedDomain, isURL} from "../utils";
 
 export const Creator = () => {
     const [step, setStep] = useState(0);
