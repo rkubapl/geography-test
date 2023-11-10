@@ -62,6 +62,8 @@ export const Main = () => {
                     <Link to={"/test/" + key}>{tests[key].n}</Link> (<Link to={"/leaderboard/" + key}>Tablica wyników</Link>)
                 </div>
             ))}
+            <Link to={"/create"}>Stwórz własny test</Link>
+            <br />
             <br />
             <Link to="/poradnik">Poradnik</Link>
             <br />

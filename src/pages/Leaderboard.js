@@ -3,6 +3,8 @@ import {useEffect, useState} from "react";
 import {getLeaderboardData} from "../utils/api.ts";
 
 export const Leaderboard = () => {
+    const [loaded, setLoaded] = useState(false)
+    const [error, setError] = useState()
     const { testId } = useParams()
 
     const [leaderboardData, setLeaderboardData] = useState([]);
@@ -11,10 +13,16 @@ export const Leaderboard = () => {
         getLeaderboardData(testId)
             .then(resp => resp.json())
             .then(json => {
-                console.log(json.results)
-                if(json.success) setLeaderboardData(json.results)
+                if(json.success) {
+                    setLoaded(true)
+                    setLeaderboardData(json.results)
+                } else {
+                    setError("Brak danych!")
+                }
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                setError(err.message)
+            })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -22,25 +30,31 @@ export const Leaderboard = () => {
         <div>
             <Link to="/">Strona główna</Link>
             <h1>Tablica wyników dla testu "{testId}"</h1>
-            <table>
-                <tr>
-                    <th>Miejsce</th>
-                    <th>Nazwa użytkownika</th>
-                    <th>Ilość punktów</th>
-                    <th>Czas</th>
-                    <th>Dokładność</th>
-                </tr>
-                {leaderboardData.map((result, index) => (
-                    <tr>
-                        <td>{index+1}</td>
-                        <td>{result.anonym ? <span>{result.user}</span> : <Link className="link" to={`/user/${result.user}`}>{result.user}</Link>}</td>
-                        <td>{result.points.toString()}</td>
-                        <td>{(result.time).toString()}s</td>
-                        <td>{(result.accuracy).toString()}%</td>
-                    </tr>
-                ))
-                }
-            </table>
+            {
+                loaded ?
+                    <table>
+                        <tr>
+                            <th>Miejsce</th>
+                            <th>Nazwa użytkownika</th>
+                            <th>Ilość punktów</th>
+                            <th>Czas</th>
+                            <th>Dokładność</th>
+                        </tr>
+                        {leaderboardData.length === 0 && <tr><td>Brak danych!</td></tr>}
+                        {leaderboardData.map((result, index) => (
+                            <tr>
+                                <td>{index+1}</td>
+                                <td>{result.anonym ? <span>{result.user}</span> : <Link className="link" to={`/user/${result.user}`}>{result.user}</Link>}</td>
+                                <td>{result.points.toString()}</td>
+                                <td>{(result.time).toString()}s</td>
+                                <td>{(result.accuracy).toString()}%</td>
+                            </tr>
+                        ))
+                        }
+                    </table>
+                :
+                    <span>{error ? `Wystąpił błąd: ${error}` : "Ładowanie danych..."}</span>
+            }
         </div>
     )
 }

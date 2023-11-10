@@ -27,12 +27,12 @@ const pradolinyPoints = [{"x":164,"y":23,"n":"Pradolina Redy-Łeby"},{"x":80,"y"
 const rzekiPoints = [{"x":1838,"y":1333,"n":"Wisła"},{"x":942,"y":1747,"n":"Odra"},{"x":1706,"y":1555,"n":"Warta"},{"x":2921,"y":1467,"n":"Bug"},{"x":2406,"y":1326,"n":"Narew"},{"x":2787,"y":2379,"n":"San"},{"x":1161,"y":1184,"n":"Noteć"},{"x":2103,"y":1885,"n":"Pilica"},{"x":2864,"y":1895,"n":"Wieprz"},{"x":831,"y":1821,"n":"Bóbr"},{"x":2292,"y":632,"n":"Łyna"},{"x":629,"y":1750,"n":"Nysa Łużycka"},{"x":2211,"y":1312,"n":"Wkra"},{"x":2235,"y":2787,"n":"Dunajec"},{"x":1531,"y":956,"n":"Brda"}]
 
 const tests = {
-    "krainy": {n: "Krainy geograficzne", p: regionsPoints, i: "http://localhost:3000/maps/mapa-1.png", s: 300},
-    "megaregiony": {n: "Megaregiony", p: megaregionyPoints, i: "http://localhost:3000/maps/mapa-2.jpg", s: 100},
-    "prowincje": {n: "Prowincje", p: prowincjePoints, i: "http://localhost:3000/maps/mapa-2.jpg", s: 70},
-    "podprowincje": {n: "Podprowincje", p: podprowincjePoints, i: "http://localhost:3000/maps/mapa-2.jpg", s: 70},
-    "pradoliny": {n: "Pradoliny", p: pradolinyPoints, i: "http://localhost:3000/maps/mapa-pradoliny.jpg", s: 70, defaultFlip: true},
-    "rzeki": {i: "http://localhost:3000/maps/mapa-rzek.jpg", n: "Rzeki w Polsce", p: rzekiPoints, s: 300},
+    "krainy": {n: "Krainy geograficzne", p: regionsPoints, i: "/maps/mapa-1.png", s: 300},
+    "megaregiony": {n: "Megaregiony", p: megaregionyPoints, i: "/maps/mapa-2.jpg", s: 100},
+    "prowincje": {n: "Prowincje", p: prowincjePoints, i: "/maps/mapa-2.jpg", s: 70},
+    "podprowincje": {n: "Podprowincje", p: podprowincjePoints, i: "/maps/mapa-2.jpg", s: 70},
+    "pradoliny": {n: "Pradoliny", p: pradolinyPoints, i: "/maps/mapa-pradoliny.jpg", s: 70, defaultFlip: true},
+    "rzeki": {i: "/maps/mapa-rzek.jpg", n: "Rzeki w Polsce", p: rzekiPoints, s: 300},
 }
 
 export default tests

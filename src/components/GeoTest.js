@@ -182,7 +182,9 @@ export const GeoTest = params => {
 
     return (
         <div style={{height: '100vh'}}>
-            <span className="link fixed" onClick={() => setLearnMode(prevState => !prevState)}>Tryb nauki: {learnMode ? "ON" : "OFF"}</span>
+            <div className="fixed">
+                <Link to="/" className="link">Strona główna</Link> - <span className="link" onClick={() => setLearnMode(prevState => !prevState)}>Tryb nauki: {learnMode ? "ON" : "OFF"}</span>
+            </div>
             {creatorMode && JSON.stringify(createdPoints)}
             { !isGameOver && points.length > 0
                 &&

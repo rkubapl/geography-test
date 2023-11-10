@@ -2,6 +2,7 @@ import React, {useCallback, useEffect, useState} from 'react'
 import "./Creator.css"
 import {Map, Marker} from "react-canvas-map";
 import {encode,decode} from 'base-64';
+import {allowedDomains, isAllowedDomain, isURL, isValidUrl} from "../utils";
 
 export const Creator = () => {
     const [step, setStep] = useState(0);
@@ -68,6 +69,7 @@ export const Creator = () => {
             const data = decode(base64);
             if(isJson(data)) {
                 const json = JSON.parse(data)
+
                 setName(json.n)
                 setImageUrl(json.i)
                 setPoints(json.p)
@@ -82,6 +84,18 @@ export const Creator = () => {
 
     function verifyStep0() {
         let errs = []
+
+        if(!isURL(imageUrl)) {
+            setErrors([`Nieprawidłowy link do zdjęcia!`])
+            return
+        }
+
+        const url = new URL(imageUrl);
+
+        if(!isAllowedDomain(url.hostname)) {
+            setErrors([`Zdjęcie pochodzi z niedozwolonej domeny! Dozwolone domeny to: ${allowedDomains.join(", ")}`])
+            return
+        }
 
         const image = new Image()
         image.src = imageUrl
