@@ -1,8 +1,8 @@
 import {useSearchParams} from "react-router-dom";
 import {GeoTest} from "../components/GeoTest";
 import {isAllowedDomain, isJson, isURL} from "../utils";
-import {decode} from "base-64";
 import {useEffect, useState} from "react";
+import {Base64} from "js-base64";
 
 export const CustomTest = () => {
     const [test, setTest] = useState()
@@ -13,7 +13,7 @@ export const CustomTest = () => {
 
     useEffect(() => {
         if(data) {
-            const decoded = decode(data);
+            const decoded = Base64.decode(data);
             if(isJson(decoded)) {
                 const json = JSON.parse(decoded);
                 setTest(json)

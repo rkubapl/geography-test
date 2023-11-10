@@ -1,8 +1,8 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import "./Creator.css"
 import {Map, Marker} from "react-canvas-map";
-import {encode,decode} from 'base-64';
 import {allowedDomains, isAllowedDomain, isURL} from "../utils";
+import {Base64} from "js-base64";
 
 export const Creator = () => {
     const [step, setStep] = useState(0);
@@ -66,7 +66,7 @@ export const Creator = () => {
         const split = existingTestURL.split("?data=")
         if(split.length === 2) {
             const base64 = split[1]
-            const data = decode(base64);
+            const data = Base64.decode(base64);
             if(isJson(data)) {
                 const json = JSON.parse(data)
 
@@ -128,7 +128,7 @@ export const Creator = () => {
     const [encodedDataURL, setEncodedDataURL] = useState();
 
     function generateLink() {
-        setEncodedDataURL(`${window.location.origin}/customTest?data=${encode(JSON.stringify({n: name, s: pointSize, i: imageUrl, p: points}))}`)
+        setEncodedDataURL(`${window.location.origin}/customTest?data=${Base64.encode(JSON.stringify({n: name, s: pointSize, i: imageUrl, p: points}))}`)
         setStep(3)
     }
 

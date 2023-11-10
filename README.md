@@ -22,22 +22,15 @@ I created this app to prepare for a geography test. Some time ago the teacher re
 - Install dependencies using `npm install`
 - Run development version using `npm run dev` or build the app using `npm run build`.  After the build, you can find the production-ready version in the `build/` directory.
 
-# How to create your own test
-- Edit `data.js` file by adding your own test and points. Add an test with empty points to `tests` object.
+# How to add your own test
+- Create test by going to `/create` page
+- Get base64 data from query (`?data=base64`) and decode it using base64
+- Paste decoded data to the tests array in `data.js` file
 ```js
 const tests = {
-    "countries": {name: "European Countries", points: [], map: "map-eu.png", pointSize: 300}
+    "countries": {n: "European Countries", p: [{x:168,y:165,n:"Poland"},{x:324,y:53,n:"Italy"}], i: "https://geografia.rkuba.pl/maps/map-eu.png", s: 300}
 }
 ```
-- Edit the `GeoTest.js` file by setting `creatorMode` variable to `true`.
-- Go to test f.e. `/test/countries` and add the points by clicking the map. 
-- Paste array of points (you can find it on the top of website) to the test object
-```js
-const tests = {
-    "countries": {name: "European Countries", points: [{"x":168,"y":165,"name":"Poland"},{"x":324,"y":53,"name":"Italy"}], map: "map-eu.png", pointSize: 300}
-}
-```
-- Adjust points size to your needs (`pointSize` variable).
 
 ## License
 
