@@ -1,4 +1,13 @@
 const apiUrl = process.env.REACT_APP_API_URL;
+const apiTestsUrl = process.env.REACT_APP_API_TESTS_URL;
+
+export function getTests() {
+    return fetch(`${apiTestsUrl}/api/tests/all`)
+}
+
+export function getTest(id: string) {
+    return fetch(`${apiTestsUrl}/api/tests/test?id=${id}`)
+}
 
 export function sendResultAPI(token, testId, points, time, accuracy) {
     let headers = {Authorization: `Bearer ${token}`, 'Content-Type': 'application/json'};

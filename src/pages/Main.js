@@ -1,10 +1,19 @@
 import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {deleteCookie, setCookie} from "../utils/cookies";
-import tests from "../data.js";
-import {getUserInfo, handleUserAPI} from "../utils/api.ts";
+// import tests from "../data.js";
+import {getUserInfo, handleUserAPI, getTests} from "../utils/api.ts";
 
 export const Main = () => {
+    const [loaded, setLoaded] = useState(false)
+    const [error, setError] = useState("")
+    const [tests, setTests] = useState([])
+
+    const errors = {
+        "NOT_FIND": "Nie znaleziono!"
+    }
+
+
     const [userData, setUserData] = useState(undefined)
 
     const [nickname, setNickname] = useState("")
@@ -12,6 +21,21 @@ export const Main = () => {
     const [errorMessage, setErrorMessage] = useState("")
 
     useEffect(() => {
+        getTests()
+            .then(resp => resp.json())
+            .then(json => {
+                setLoaded(true)
+
+                if(json.success) {
+                    setTests(json.results)
+                } else {
+                    setError("Błąd: " + json.message)
+                }
+            }).catch(err => {
+                setLoaded(true)
+                setError("Błąd: " + err.message)
+            })
+
         const token = getCookie("token")
 
         if(token !== "") {
@@ -57,13 +81,15 @@ export const Main = () => {
             <h1>Geografia testy</h1>
             <span>Dostępne testy:</span>
             <br />
-            {Object.keys(tests).map((key, _) => (
+            {!loaded && <span>Ładowanie testów...</span>}
+            {(loaded && error) &&<span>{error}</span>}
+            {(loaded && tests && !error) && tests.map(test => (
                 <div>
-                    <Link to={"/test/" + key}>{tests[key].n}</Link> (<Link to={"/leaderboard/" + key}>Tablica wyników</Link>)
+                    <Link to={"/test/" + test.id}>{test.name}</Link> (<Link to={"/leaderboard/" + test.id}>Tablica wyników</Link>)
                 </div>
             ))}
-            <Link to={"/create"}>Stwórz własny test</Link>
             <br />
+            <Link to={"/create"}>Stwórz własny test</Link>
             <br />
             <Link to="/poradnik">Poradnik</Link>
             <br />
