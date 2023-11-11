@@ -1,7 +1,6 @@
 import {useParams} from "react-router-dom";
 import {GeoTest} from "../components/GeoTest";
 import {getTest} from "../utils/api.ts";
-import {setCookie} from "../utils/cookies";
 import {useState} from "react";
 
 export const Test = () => {

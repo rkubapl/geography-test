@@ -9,11 +9,6 @@ export const Main = () => {
     const [error, setError] = useState("")
     const [tests, setTests] = useState([])
 
-    const errors = {
-        "NOT_FIND": "Nie znaleziono!"
-    }
-
-
     const [userData, setUserData] = useState(undefined)
 
     const [nickname, setNickname] = useState("")
