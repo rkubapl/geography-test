@@ -15,12 +15,16 @@
 }
 
 .pointsList {
-    text-align: left;
     height: 85%;
+}
 
+.scroll {
+    height: 87%;
     display: flex;
     flex-direction: column;
     gap: 5px;
+
+    overflow-y: scroll;
 }
 
 .pointControl {
@@ -37,9 +41,9 @@
 
 .controls {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr;
-    grid-column-gap: 10px;
+    /*grid-template-columns: repeat(2, 1fr);*/
+    /*grid-template-rows: 1fr;*/
+    /*grid-column-gap: 10px;*/
     /*grid-row-gap: 0px;*/
     height: 10%;
 }
@@ -52,6 +56,7 @@
 .pointOnList {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .removeButton {
@@ -71,7 +76,7 @@
     color: red
 }
 
-.modal {
+.modalTop {
     top: 2%;
     position: fixed;
     z-index: 10;
@@ -87,3 +92,12 @@
     cursor: pointer;
     display: block;
 }
+
+/*.button {*/
+/*  background-color: #639fff;*/
+/*  color: #FFF;*/
+/*  padding: 10px 25px;*/
+/*  border-radius: 8px;*/
+/*  border: 0;*/
+/*  font-size: .95rem;*/
+/*}*/

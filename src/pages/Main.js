@@ -72,21 +72,39 @@ export const Main = () => {
 
 
     return (
-        <div>
-            <h1>Geografia testy</h1>
-            <span>Dostępne testy:</span>
-            <br />
-            {!loaded && <span>Ładowanie testów...</span>}
-            {(loaded && error) &&<span>{error}</span>}
-            {(loaded && tests && !error) && tests.map(test => (
+        <div className="container">
+            <div>
+                <h1>Geografia testy</h1>
+                <span className="medium">Dostępne testy:</span>
                 <div>
-                    <Link to={"/test/" + test.id}>{test.name}</Link> (<Link to={"/leaderboard/" + test.id}>Tablica wyników</Link>)
+                    {!loaded && <span>Ładowanie testów...</span>}
+                    {(loaded && error) &&<span>{error}</span>}
+                    {(loaded && tests && !error) && tests.map(test => (
+                        <div>
+                            <Link to={"/test/" + test.id}>{test.name}</Link> (<Link to={"/leaderboard/" + test.id}>Tablica wyników</Link>)
+                        </div>
+                    ))}
+                    <br/>
+                    <Link to={"/create"}>Stwórz własny test</Link>
+                    <br/>
+                    <Link to="/poradnik">Poradnik</Link>
                 </div>
-            ))}
-            <br />
-            <Link to={"/create"}>Stwórz własny test</Link>
-            <br />
-            <Link to="/poradnik">Poradnik</Link>
+            </div>
+            {/*<h1>Geografia testy</h1>*/}
+            {/*<span className="medium">Dostępne testy:</span>*/}
+            {/*<div>*/}
+            {/*    {!loaded && <span>Ładowanie testów...</span>}*/}
+            {/*    {(loaded && error) &&<span>{error}</span>}*/}
+            {/*    {(loaded && tests && !error) && tests.map(test => (*/}
+            {/*        <div>*/}
+            {/*            <Link to={"/test/" + test.id}>{test.name}</Link> (<Link to={"/leaderboard/" + test.id}>Tablica wyników</Link>)*/}
+            {/*        </div>*/}
+            {/*    ))}*/}
+            {/*    <br/>*/}
+            {/*    <Link to={"/create"}>Stwórz własny test</Link>*/}
+            {/*    <br/>*/}
+            {/*    <Link to="/poradnik">Poradnik</Link>*/}
+            {/*</div>*/}
             <br />
             { userData ?
                 (
@@ -100,22 +118,22 @@ export const Main = () => {
                     </div>
                 )   :
                 (
-                    <div>
-                        <div>
-                            <h2>Logowanie</h2>
-                            <span>Umożliwia zapisywanie twoich wyników pod nickiem.<br />Wyniki niezalogowanych użytkowników widnieją w tablicach wyników jako "Anonim".</span>
-                            <br />
-                            <label>Nickname: </label>
-                            <input type="text" value={nickname} onChange={e => setNickname(e.target.value)} />
-                            <br />
-                            <label>Hasło: </label>
-                            <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
-                            <br />
-                            <button onClick={() => handleUser('login')}>Zaloguj</button>
-                            <button onClick={() => handleUser('register')}>Zarejestruj</button>
+                    <div className="col-5">
+                        <h2 className="font-weight-bold">Logowanie/Rejestracja</h2>
+                            <div className="mb-3">
+                                <label className="form-label">Nickname</label>
+                                <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value={nickname} onChange={e => setNickname(e.target.value)} />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Hasło</label>
+                                <input type="password" className="form-control" id="exampleInputPassword1" value={password} onChange={e => setPassword(e.target.value)} />
+                            </div>
+                            <div className="btn-group">
+                                <button type="submit" className="btn btn-primary" onClick={() => handleUser('login')}>Zaloguj</button>
+                                <button type="submit" className="btn btn-secondary" onClick={() => handleUser('register')}>Zarejestruj</button>
+                            </div>
                             <br />
                             {errorMessage && <span>{errorMessage}</span>}
-                        </div>
                     </div>
                 )
             }
