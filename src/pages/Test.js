@@ -1,7 +1,7 @@
 import {useParams} from "react-router-dom";
 import {GeoTest} from "../components/GeoTest";
 import {getTest} from "../utils/api.ts";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 export const Test = () => {
     const [test, setTest] = useState({})
@@ -11,17 +11,20 @@ export const Test = () => {
     const { testId } = useParams()
     // const test = tests[testId]
 
-    getTest(testId)
-        .then(resp => resp.json())
-        .then(json => {
-            setLoaded(true)
-            if(json.success) {
-                setTest(json.result)
-            } else {
-                setError(json.message)
-            }
-        })
-        .catch(err => setError(err.message))
+    useEffect(() => {
+        getTest(testId)
+            .then(resp => resp.json())
+            .then(json => {
+                setLoaded(true)
+                if(json.success) {
+                    setTest(json.result)
+                } else {
+                    setError(json.message)
+                }
+            })
+            .catch(err => setError(err.message))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         (loaded && test) ?
