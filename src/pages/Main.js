@@ -75,15 +75,31 @@ export const Main = () => {
         <div className="container">
             <div>
                 <h1>Geografia testy</h1>
-                <span className="medium">Dostępne testy:</span>
+                {/*<span className="medium">Dostępne testy:</span>*/}
                 <div>
                     {!loaded && <span>Ładowanie testów...</span>}
                     {(loaded && error) &&<span>{error}</span>}
-                    {(loaded && tests && !error) && tests.map(test => (
-                        <div>
-                            <Link to={"/test/" + test.id}>{test.name}</Link> (<Link to={"/leaderboard/" + test.id}>Tablica wyników</Link>)
-                        </div>
-                    ))}
+                    {(loaded && tests && !error) &&
+                        (
+                            <div>
+                                <span>Wyróżnione testy</span>
+                                {
+                                    tests.filter(t => t.distinguishPoints > 0).map(test => (
+                                        <div>
+                                            <Link to={"/test/" + test.id}>{test.name}</Link> (<Link to={"/leaderboard/" + test.id}>Tablica wyników</Link>)
+                                        </div>
+                                    ))
+                                }
+                                <span>Inne testy</span>
+                                {
+                                    tests.filter(t => t.distinguishPoints === 0).map(test => (
+                                        <div>
+                                            <Link to={"/test/" + test.id}>{test.name}</Link> (<Link to={"/leaderboard/" + test.id}>Tablica wyników</Link>)
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        )}
                     <br/>
                     <Link to={"/create"}>Stwórz własny test</Link>
                     <br/>
