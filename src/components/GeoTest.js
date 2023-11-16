@@ -201,11 +201,10 @@ export const GeoTest = params => {
                     <span>Liczba prawidłowych odpowiedzi</span>
                     <h1>{correctAnswersCount}/{points.length}</h1>
                     <span>{Math.floor((correctAnswersCount/points.length)*100)}% - {Math.round((finishTime-startTime)/1000*10)/10}s - {finalPoints} punktów</span>
-                    <br />
-                    <span>{resultUploaded ? "Przesłano wyniki!" : (errWhenUploading ? "Błąd podczas przesyłania wyniku" : "Przesyłanie wyniku...")}</span><br />
-                    <span onClick={reset} className="link">Kliknij aby zresetować</span>
-                    <br />
-                    <Link className="link" to="/">Strona główna</Link>
+                    <span>{resultUploaded ? "Przesłano wyniki!" : (errWhenUploading ? "Błąd podczas przesyłania wyniku" : "Przesyłanie wyniku...")}</span>
+                    <div>
+                        <span onClick={reset} className="link">Kliknij aby zresetować</span> - <Link className="link" to="/">Strona główna</Link>
+                    </div>
                 </div>)
             }
             <Map

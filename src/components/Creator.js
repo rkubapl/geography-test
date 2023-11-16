@@ -140,9 +140,12 @@ export const Creator = () => {
     }, [points])
 
     const [encodedDataURL, setEncodedDataURL] = useState();
+    const [jsonData, setJsonData] = useState();
 
     function generateLink() {
-        setEncodedDataURL(`${window.location.origin}/customTest?data=${Base64.encode(JSON.stringify({n: name, s: pointSize, i: imageUrl, p: points}))}`)
+        const json = JSON.stringify({n: name, s: pointSize, i: imageUrl, p: points})
+        setJsonData(json)
+        setEncodedDataURL(`${window.location.origin}/customTest?data=${Base64.encode(json)}`)
         setStep(3)
     }
 
@@ -157,8 +160,8 @@ export const Creator = () => {
     }, [creatingPointStep])
 
     const createPoint = () => {
-        if(creatingPointName.length < 4 || creatingPointName.length > 32) {
-            setErrors(["Nazwa punktu musi mieć od 4 do 32 znaków!"])
+        if(creatingPointName.length < 3 || creatingPointName.length > 32) {
+            setErrors(["Nazwa punktu musi mieć od 3 do 32 znaków!"])
             return;
         }
         setPoints(prevState => [...prevState, {...creatingPointCoords, n: creatingPointName}])
@@ -260,6 +263,7 @@ export const Creator = () => {
             <button className="btn btn-primary" onClick={() => navigator.clipboard.writeText(encodedDataURL)}>Skopiuj link</button>
             <br />
             <span>UWAGA! Skopiuj ten link i zapisz go gdzieś. Test nie jest zapisywany nigdzie poza Twoim komputerem, dane do testu znajdują się w linku powyżej.</span>
+            <input className="form-control mb-2" style={{"width": "90vw"}} value={jsonData} />
         </div>
     )
 
