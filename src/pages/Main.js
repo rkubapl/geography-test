@@ -1,7 +1,6 @@
 import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
 import {deleteCookie, setCookie} from "../utils/cookies";
-// import tests from "../data.js";
 import {getUserInfo, handleUserAPI, getTests} from "../utils/api.ts";
 
 export const Main = () => {
@@ -56,9 +55,8 @@ export const Main = () => {
                     setErrorMessage(json.message)
                 }
             })
-            .catch(err => setErrorMessage("System punktacji jest wyłączony."))
+            .catch(() => setErrorMessage("System punktacji jest wyłączony."))
     }
-
 
     function logout() {
         deleteCookie("token")
@@ -74,8 +72,7 @@ export const Main = () => {
     return (
         <div className="container">
             <div>
-                <h1>Geografia testy</h1>
-                {/*<span className="medium">Dostępne testy:</span>*/}
+                <h1>Geografia - Nauka map</h1>
                 <div>
                     {!loaded && <span>Ładowanie testów...</span>}
                     {(loaded && error) &&<span>{error}</span>}
@@ -106,21 +103,6 @@ export const Main = () => {
                     <Link to="/poradnik">Poradnik</Link>
                 </div>
             </div>
-            {/*<h1>Geografia testy</h1>*/}
-            {/*<span className="medium">Dostępne testy:</span>*/}
-            {/*<div>*/}
-            {/*    {!loaded && <span>Ładowanie testów...</span>}*/}
-            {/*    {(loaded && error) &&<span>{error}</span>}*/}
-            {/*    {(loaded && tests && !error) && tests.map(test => (*/}
-            {/*        <div>*/}
-            {/*            <Link to={"/test/" + test.id}>{test.name}</Link> (<Link to={"/leaderboard/" + test.id}>Tablica wyników</Link>)*/}
-            {/*        </div>*/}
-            {/*    ))}*/}
-            {/*    <br/>*/}
-            {/*    <Link to={"/create"}>Stwórz własny test</Link>*/}
-            {/*    <br/>*/}
-            {/*    <Link to="/poradnik">Poradnik</Link>*/}
-            {/*</div>*/}
             <br />
             { userData ?
                 (
@@ -130,7 +112,7 @@ export const Main = () => {
                         <br />
                         <Link to={`/user/${userData.nickname}`}>Statystyki</Link>
                         <br />
-                        <button onClick={logout}>Wyloguj</button>
+                        <button className="btn btn-primary" onClick={logout}>Wyloguj</button>
                     </div>
                 )   :
                 (
