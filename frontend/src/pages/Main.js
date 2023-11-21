@@ -137,9 +137,7 @@ export const Main = () => {
             }
             < br/>
             <div className="text-center">
-                <span>
-                    Strona stworzona przez <a href="https://github.com/rkubapl" rel="noopener" target="_blank">rkubapl</a>. Kod źródłowy projektu jest otwarty i znajduje się <a href="https://github.com/rkubapl/geography-test" rel="noopener" target="_blank">tutaj</a>.
-                </span>
+                <span>Strona stworzona przez <a href="https://github.com/rkubapl" rel="noopener" target="_blank">rkubapl</a>. Kod źródłowy projektu jest otwarty i znajduje się <a href="https://github.com/rkubapl/geography-test" rel="noopener" target="_blank">tutaj</a>.</span>
             </div>
         </div>
     )
