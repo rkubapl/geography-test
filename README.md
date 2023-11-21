@@ -1,5 +1,5 @@
 <div align="center">
-  <a href="https://geografia.rkuba.pl"><img src="https://raw.githubusercontent.com/rkubapl/geography-test/master/public/logo.png" alt="Logo" width="200"></a>
+  <a href="https://geografia.rkuba.pl"><img src="https://raw.githubusercontent.com/rkubapl/geography-test/master/frontend/public/logo.png" alt="Logo" width="200"></a>
   <br>
   <h1>Geography Test Web App</h1>
   <h3><a href="https://geografia.rkuba.pl" target="_blank">Live Version</a></h3>
