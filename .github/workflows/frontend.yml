@@ -5,7 +5,7 @@ name: React Frontend CI
 
 defaults:
   run:
-    working-directory: frontend
+    working-directory: ./frontend
     
 on:
   push:
@@ -15,6 +15,9 @@ on:
 
 jobs:
   build:
+    defaults:
+      run:
+        working-directory: ./frontend
     runs-on: ubuntu-latest
     strategy:
       matrix:
