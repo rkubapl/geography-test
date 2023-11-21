@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    image: node-app
+    environment:
+      - MONGODB=mongodb://mongodb:27018/geography-api
+      - PORT=3000
+      - TOKEN_SECRET=secret
+    ports:
+      - '3000:3000'
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/src
+    networks:
+      - node-network
+  mongodb:
+    image: mongo:6-jammy
+    ports:
+      - '27018:27017'
+    volumes:
+      - dbdata:/data/db
+    networks:
+      - node-network
+    environment:
+      MONGO_INITDB_DATABASE: geographyapi
+
+volumes:
+  dbdata:
+
+networks:
+  node-network:
+    driver: bridge
