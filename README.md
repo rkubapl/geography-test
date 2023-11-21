@@ -6,6 +6,8 @@
   <br>
 </div>
 
+[![wakatime](https://wakatime.com/badge/user/a0c4550d-7e34-41b0-9e32-d67f272398e0/project/018b68a7-a1ba-4725-8330-742751fc6dce.svg)](https://wakatime.com/badge/user/a0c4550d-7e34-41b0-9e32-d67f272398e0/project/018b68a7-a1ba-4725-8330-742751fc6dce)
+
 Geography Test is a web application designed to facilitate learning of geographical maps by enabling the creation and completion of personalized tests on various geographical regions. Similar to Seterra, but it allows users to craft their own tests for free. The logo was generated using [DALL-E 2](https://openai.com/dall-e-2).
 
 You can experience the live version of the app here:
