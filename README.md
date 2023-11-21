@@ -15,6 +15,14 @@ You can experience the live version of the app here:
 - [geography-test.vercel.app](https://geography-test.vercel.app)
 - [geography-test.pages.dev](https://geography-test.pages.dev)
 
+# Features
+- Two test modes: click on a point by its name or display point name by clicking on the point.
+- Catalog API: access list of tests from API
+- Ability to create custom tests by providing an image URL (from allowed domains) and clicking on points on the map in the creator. Data is included in created url encoded using base64 `https://geografia.rkuba.pl/customTest?data=eyJuIjoiZHNhZGFzIiwicyI6MzAwLCJp...`
+- Capability to create an account and upload test results.
+- Leaderboard for tests (results are sorted by points calculated based on time and accuracy).
+- Personal user statistics (records, recently taken tests).
+
 # Screenshots
 ![screenshot1](https://i.imgur.com/zz23ULE.png)
 ![screenshot2](https://i.imgur.com/dPUu7yy.png)
