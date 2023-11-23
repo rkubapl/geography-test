@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import { Map, Marker } from 'react-canvas-map'
 import "./GeoTest.css"
 import {Link} from "react-router-dom";
@@ -50,7 +50,10 @@ export const GeoTest = params => {
 
     //MODES: TYPE
     const [inputValue, setInputValue] = useState("")
+
     const [showCorrectAnswer, setShowCorrectAnswer] = useState(false)
+    const [firstTimeWrong, setFirstTimeWrong] = useState(false)
+
     const [confirm, setConfirm] = useState(false)
 
 
@@ -252,42 +255,73 @@ export const GeoTest = params => {
         return str;
     }
 
-    function checkIfInputCorrect(e) {
-        const { value } = e.target;
-        setInputValue(value)
-
-        let correct = false;
-        if(caseSensitive) {
-            if (value === points[currentPointIndex].n) {
-                correct = true;
+    function handleInput(e = undefined) {
+        if (e === undefined || e.key === 'Enter') {
+            let correct = false;
+            if(caseSensitive) {
+                if (inputValue === points[currentPointIndex].n) {
+                    correct = true;
+                }
+            } else {
+                if(minifyString(inputValue) === minifyString(points[currentPointIndex].n)) {
+                    correct = true;
+                }
             }
-        } else {
-            if(minifyString(value) === minifyString(points[currentPointIndex].n)) {
-                correct = true;
-            }
-        }
 
-        if (correct) {
-            setPointState(currentPointIndex, showCorrectAnswer ? "invalid" : "correct")
-            setInputValue("")
-            setConfirm(false)
-            setShowCorrectAnswer(false)
-            nextPoint()
+            if (correct) {
+                if (showCorrectAnswer) { //showed answer
+                    setPointState(currentPointIndex, "invalid")
+                } else if (firstTimeWrong) { // second time, not showed answer
+                    setPointState(currentPointIndex, "partly")
+                } else { // first time
+                    setPointState(currentPointIndex, "correct")
+                }
+
+                setInputValue("")
+                setConfirm(false)
+                setShowCorrectAnswer(false)
+                setFirstTimeWrong(false)
+
+                nextPoint()
+            } else {
+                if(!firstTimeWrong) setFirstTimeWrong(true)
+            }
         }
     }
     function start() {
         initGame()
     }
 
-    function skipPoint() {
-        setShowCorrectAnswer(true)
-        setPointState(currentPointIndex, "partly")
+    const TypeCard = (props) => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const inp = useRef(null)
+
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        useEffect(() => {
+            inp.current.focus()
+        }, [])
+
+        return (
+            <div>
+                <span className="h5">Wpisz nazwę punktu</span>
+                <div className="mb-2">
+                    <div className="input-group mt-2">
+                        <input type="text" ref={inp} className="form-control" id="exampleFormControlInput1" placeholder="np. kotlina slaska" value={inputValue} onKeyDown={e => handleInput(e)} onChange={e => setInputValue(e.target.value)} />
+                        <button type="submit" className="btn btn-success" onClick={() => handleInput()}>Zatwierdź</button>
+                        <button type="submit" className="btn btn-danger" onClick={()=> setShowCorrectAnswer(true)}>Nie wiem</button>
+                    </div>
+
+                    {showCorrectAnswer && <div id="emailHelp" className="form-text">Prawidłowa odpowiedź: {points[currentPointIndex].n}</div>}
+                    {firstTimeWrong && <div id="emailHelp" className="form-text">Błędna odpowiedź</div>}
+                </div>
+            </div>
+        )
     }
 
     return (
         <div style={{height: '100vh'}}>
             <div className="fixed">
-                <Link to="/" className="link">Strona główna</Link>
+                <Link to="/" className="link">Strona główna</Link> - <span onClick={() => setStep("MODE-SELECT")} className="link">Zmień tryb/reset</span>
             </div>
 
 
@@ -338,18 +372,7 @@ export const GeoTest = params => {
                         </div>
                     }
                     { mode === "TYPE" &&
-                        <div>
-                            <span className="h5">Wpisz nazwę punktu</span>
-                            <div className="mb-2">
-                                <input type="email" className="form-control mt-2" id="exampleFormControlInput1" placeholder="np. kotlina slaska" value={inputValue} onChange={e => checkIfInputCorrect(e)} />
-                                {showCorrectAnswer && <div id="emailHelp" className="form-text">Prawidłowa odpowiedź: {points[currentPointIndex].n}</div>}
-                                {confirm && <div id="emailHelp" className="form-text">Błędna odpowiedź</div>}
-                            </div>
-                            <div className="btn-group mb-1">
-                                <button type="submit" className="btn btn-success" onClick={() => setConfirm(true)}>Zatwierdź</button>
-                                <button type="submit" className="btn btn-danger" onClick={()=> skipPoint()}>Nie wiem</button>
-                            </div>
-                        </div>
+                        <TypeCard></TypeCard>
                     }
                     { mode === "LEARN" &&
                         <div>

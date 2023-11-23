@@ -73,7 +73,8 @@ export const Main = () => {
         <div className="container">
             <div>
                 <h1>Geografia - Nauka map</h1>
-                <div>
+                <a href="https://dev-geography-test.vercel.app/" target="_blank" rel="noreferrer">Wersja BETA (więcej opcji testów)</a>
+                <div className="mt-3">
                     {!loaded && <span>Ładowanie testów...</span>}
                     {(loaded && error) &&<span>{error}</span>}
                     {(loaded && tests && !error) &&
