@@ -4,7 +4,7 @@ import {isAllowedDomain, isJson, isURL} from "../utils";
 import {useEffect, useState} from "react";
 import {Base64} from "js-base64";
 
-export const CustomTest = () => {
+export default function CustomTest() {
     const [test, setTest] = useState()
     const [error, setError] = useState("")
 

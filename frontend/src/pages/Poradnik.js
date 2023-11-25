@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 
-export const Poradnik = () => {
+export default function Poradnik() {
     return (
         <div>
             <Link to="/">Strona główna</Link>
