@@ -2,8 +2,8 @@ import React, {useEffect, useRef, useState} from 'react'
 import { Map, Marker } from 'react-canvas-map'
 import "./GeoTest.css"
 import {Link} from "react-router-dom";
-// import {getCookie} from "../utils/cookies";
-// import {sendResultAPI} from "../utils/api.ts";
+import {getCookie} from "../utils/cookies";
+import {sendResultAPI} from "../utils/api.ts";
 
 
 export const GeoTest = params => {
@@ -55,6 +55,8 @@ export const GeoTest = params => {
     const [firstTimeWrong, setFirstTimeWrong] = useState(false)
 
     const [confirm, setConfirm] = useState(false)
+
+    const correctingAnswer = !(points.length === defaultPoints.length)
 
 
     //MODES: CLICK
@@ -148,7 +150,7 @@ export const GeoTest = params => {
         const finPoints = calculatePoints((finTime-startTime)/1000, correctAnswers/points.length, 150, 5000);
         setFinalPoints(finPoints)
 
-        // sendResult(finPoints, (finTime-startTime)/1000, correctAnswers/points.length);
+        if(!correctingAnswer) sendResult(finPoints, (finTime-startTime)/1000, correctAnswers/points.length);
     }
 
     function loadImage(src) {
@@ -229,18 +231,18 @@ export const GeoTest = params => {
     }
 
 
-    // function sendResult(finPoints, time, accuracy) {
-    //     const token = getCookie('token');
-    //     // if(!token) return;
-    //
-    //     sendResultAPI(token, params.testId, finPoints, time, accuracy*100)
-    //         .then(resp => resp.json())
-    //         .then(json => {
-    //             if(json.success) {
-    //                 setResultUploaded(true)
-    //             }
-    //         }).catch(() => setErrWhenUploading(true))
-    // }
+    function sendResult(finPoints, time, accuracy) {
+        const token = getCookie('token');
+        // if(!token) return;
+
+        sendResultAPI(token, params.testId, finPoints, time, accuracy*100)
+            .then(resp => resp.json())
+            .then(json => {
+                if(json.success) {
+                    setResultUploaded(true)
+                }
+            }).catch(() => setErrWhenUploading(true))
+    }
 
     const polChars = ["ą", "ć", "ę", "ł", "ń", "ó", "ś", "ż", "ź"]
     const norChars = ["a", "c", "e", "l", "n", "o", "s", "z", "z"]
@@ -292,6 +294,11 @@ export const GeoTest = params => {
         initGame()
     }
 
+    function reset() {
+        setStep("MODE-SELECT")
+        setPoints(defaultPoints)
+    }
+
     const TypeCard = (props) => {
         // eslint-disable-next-line react-hooks/rules-of-hooks
         const inp = useRef(null)
@@ -304,9 +311,11 @@ export const GeoTest = params => {
         return (
             <div>
                 <span className="h5">Wpisz nazwę punktu</span>
-                <div className="mb-2">
-                    <div className="input-group mt-2">
+                <div className="mb-1">
+                    <div className="input-group mt-1">
                         <input type="text" ref={inp} className="form-control" id="exampleFormControlInput1" placeholder="np. kotlina slaska" value={inputValue} onKeyDown={e => handleInput(e)} onChange={e => setInputValue(e.target.value)} />
+                    </div>
+                    <div className="btn-group mt-2">
                         <button type="submit" className="btn btn-success" onClick={() => handleInput()}>Zatwierdź</button>
                         <button type="submit" className="btn btn-danger" onClick={()=> setShowCorrectAnswer(true)}>Nie wiem</button>
                     </div>
@@ -321,7 +330,7 @@ export const GeoTest = params => {
     return (
         <div style={{height: '100vh'}}>
             <div className="fixed">
-                <Link to="/" className="link">Strona główna</Link> - <span onClick={() => setStep("MODE-SELECT")} className="link">Zmień tryb/reset</span>
+                <Link to="/" className="link">Strona główna</Link> - <span onClick={() => reset()} className="link">Zmień tryb/reset</span>
             </div>
 
 
@@ -363,7 +372,7 @@ export const GeoTest = params => {
 
             {
                 step === "GAME" &&
-                <div className={`card ${flip ? 'flip' : ""}`}>
+                <div className={`card ${flip ? 'flip' : ""}`} id="gamecard" onClick={() => (["LEARN", "CLICK"].includes(mode) ? setFlip(prevFlip => !prevFlip) : undefined)}>
                     { mode === "CLICK" &&
                         <div>
                             <span className="medium">Kliknij w</span>
@@ -389,7 +398,10 @@ export const GeoTest = params => {
                     <span>Liczba prawidłowych odpowiedzi</span>
                     <h1>{correctAnswersCount}/{points.length}</h1>
                     <span>{Math.floor((correctAnswersCount/points.length)*100)}% - {Math.round((finishTime-startTime)/1000*10)/10}s - {finalPoints} punktów</span>
-                    <span>{resultUploaded ? "Przesłano wyniki!" : (errWhenUploading ? "Błąd podczas przesyłania wyniku" : "Przesyłanie wyniku...")}</span>
+                    {!correctingAnswer ?
+                        <span>{resultUploaded ? "Przesłano wyniki!" : (errWhenUploading ? "Błąd podczas przesyłania wyniku" : "Przesyłanie wyniku...")}</span>
+                        : <span>Wyniki nie są przesyłane podczas popraw</span>
+                    }
 
                     <div>
                         <div className="btn-group mb-1">
@@ -399,7 +411,7 @@ export const GeoTest = params => {
                     </div>
 
                     <div>
-                        <span onClick={() => setStep("MODE-SELECT")} className="link">Zmień tryb</span> - <Link className="link" to="/">Strona główna</Link>
+                        <span onClick={() => reset()} className="link">Zmień tryb</span> - <Link className="link" to="/">Strona główna</Link>
                     </div>
                 </div>)
             }

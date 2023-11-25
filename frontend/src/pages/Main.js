@@ -73,7 +73,15 @@ export const Main = () => {
         <div className="container">
             <div>
                 <h1>Geografia - Nauka map</h1>
-                <a href="https://dev-geography-test.vercel.app/" target="_blank" rel="noreferrer">Wersja BETA (więcej opcji testów)</a>
+                <span>Aktualizacja 2.0.0</span>
+                <ul>
+                    <li>Dodano nowy tryb (wpisywania nazw lokalizacji)</li>
+                    <li>Gdy użytkownik kliknie złą odpowiedź pojawia się fioletowa kropka.</li>
+                    <li>Dodano tryb trudny, podczas którego nie widać odgadniętych już lokalizacji.</li>
+                    <li>Dodano możliwość poprawienia testu (czyli wykonanie ponownie testu z punktami niewskazanymi poprawnie za pierwszym razem).</li>
+                </ul>
+                <span>Jeśli znajdziesz jakiś błąd proszę o <a href="https://m.me/rkubapl" target="_blank" rel="noreferrer">kontakt ze mną</a>. Jeśli chcesz skorzystać ze starej wersji <a href="https://v1-geografia.rkuba.pl" target="_blank" rel="noreferrer">kliknij tutaj</a></span>
+                {/*<a href="https://dev-geography-test.vercel.app/" target="_blank" rel="noreferrer">Wersja BETA (więcej opcji testów)</a>*/}
                 <div className="mt-3">
                     {!loaded && <span>Ładowanie testów...</span>}
                     {(loaded && error) &&<span>{error}</span>}
