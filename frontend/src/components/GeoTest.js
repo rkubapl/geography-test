@@ -4,7 +4,6 @@ import Link from "next/link";
 import {getCookie} from "../utils/cookies";
 import {sendResultAPI} from "../utils/api.ts";
 
-
 export default function GeoTest(params) {
     const defaultPoints = params.points;
 
