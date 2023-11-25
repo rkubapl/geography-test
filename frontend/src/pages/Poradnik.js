@@ -1,9 +1,9 @@
-import {Link} from "react-router-dom";
+import Link from "next/link";
 
 export default function Poradnik() {
     return (
         <div>
-            <Link to="/">Strona główna</Link>
+            <Link href="/">Strona główna</Link>
             <h1>Poradnik</h1>
             <h2>1. Tryb testu</h2>
             <img alt="Instrukcje do trybu testu" src="/legenda/test.png" width="75%" />

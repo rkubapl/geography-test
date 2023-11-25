@@ -1,15 +1,19 @@
-import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getUserData} from "../utils/api.ts";
+import {getUserData} from "../../utils/api.ts";
+import {useRouter} from "next/router";
+import Link from "next/link";
 
-export default function User() {
-    const { nickname } = useParams()
+export default function Username() {
+    const router = useRouter();
+    const {username} = router.query
 
     const [data, setData] = useState();
     const [error, setError] = useState("");
 
     useEffect(() => {
-        getUserData(nickname)
+        if (!router.isReady) return;
+
+        getUserData(username)
             .then(resp => resp.json())
             .then(json => {
                 if(json.success) {
@@ -23,8 +27,8 @@ export default function User() {
 
     return (
         <div>
-            <Link to="/">Strona główna</Link>
-            <h1>Dane użytkownika {nickname}</h1>
+            <Link href="/">Strona główna</Link>
+            <h1>Dane użytkownika {username}</h1>
             { data ?
                 <div>
                     <h2>Rekordy</h2>

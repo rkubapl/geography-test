@@ -1,17 +1,20 @@
-import {useSearchParams} from "react-router-dom";
 import GeoTest from "../components/GeoTest";
 import {isAllowedDomain, isJson, isURL} from "../utils";
 import {useEffect, useState} from "react";
 import {Base64} from "js-base64";
+import {useRouter} from "next/router";
 
 export default function CustomTest() {
     const [test, setTest] = useState()
     const [error, setError] = useState("")
 
-    const [searchParams] = useSearchParams()
-    const data = searchParams.get('data');
+    const router = useRouter()
+    // const data = searchParams.get('data');
 
     useEffect(() => {
+        if(!router.isReady) return
+        const {data} = router.query
+
         if(data) {
             const decoded = Base64.decode(data);
             if(isJson(decoded)) {
@@ -37,7 +40,7 @@ export default function CustomTest() {
             setError("Nieprawidłowy link!")
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [router.isReady])
 
     return ((test && error.length === 0) ? <GeoTest imageURL={test.i} points={test.p} pointSize={test.s} /> : <span>{error ? error : "Ładowanie danych..."}</span>)
 }
