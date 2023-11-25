@@ -1,12 +1,11 @@
-const apiUrl = process.env.REACT_APP_API_URL;
-const apiTestsUrl = process.env.REACT_APP_API_CATALOG_URL;
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 export function getTests() {
-    return fetch(`${apiTestsUrl}/api/tests/all`)
+    return fetch(`/api/tests/all`)
 }
 
 export function getTest(id: string) {
-    return fetch(`${apiTestsUrl}/api/tests/test?id=${id}`)
+    return fetch(`/api/tests/get?testId=${id}`)
 }
 
 export function sendResultAPI(token, testId, points, time, accuracy) {

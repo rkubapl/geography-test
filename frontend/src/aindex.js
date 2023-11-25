@@ -7,7 +7,7 @@ import {
     createBrowserRouter,
     RouterProvider,
 } from "react-router-dom";
-import {Main} from "./pages/Main";
+import {Index} from "./pages";
 import {Leaderboard} from "./pages/Leaderboard";
 import {Poradnik} from "./pages/Poradnik";
 import {User} from "./pages/User";
@@ -19,7 +19,7 @@ import {CustomTest} from "./pages/CustomTest";
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Main />,
+        element: <Index />,
     },
     {
         path: "/poradnik",

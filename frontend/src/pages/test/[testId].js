@@ -1,17 +1,22 @@
-import {useParams} from "react-router-dom";
-import {GeoTest} from "../components/GeoTest";
-import {getTest} from "../utils/api.ts";
+import GeoTest from "../../components/GeoTest";
+import {getTest} from "../../utils/api.ts";
 import {useEffect, useState} from "react";
+import {useRouter} from "next/router";
 
-export const Test = () => {
+export default function TestId() {
+    const { testId } = useRouter().query
+    const router = useRouter();
+    console.log(testId)
+
     const [test, setTest] = useState({})
     const [error, setError] = useState("")
     const [loaded, setLoaded] = useState(false)
 
-    const { testId } = useParams()
     // const test = tests[testId]
 
     useEffect(() => {
+        if(!router.isReady) return;
+
         getTest(testId)
             .then(resp => resp.json())
             .then(json => {
@@ -24,10 +29,11 @@ export const Test = () => {
             })
             .catch(err => setError(err.message))
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [router.isReady])
 
     return (
         (loaded && test) ?
+            // <p>essa</p>
             <GeoTest testId={testId} imageURL={test.imageURL} points={test.points} pointSize={test.pointSize} />
         :
             <span>{error ? error : "Ładowanie testu..."}</span>

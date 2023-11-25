@@ -1,12 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react'
 import { Map, Marker } from 'react-canvas-map'
-import "./GeoTest.css"
-import {Link} from "react-router-dom";
+import Link from "next/link";
 import {getCookie} from "../utils/cookies";
 import {sendResultAPI} from "../utils/api.ts";
 
 
-export const GeoTest = params => {
+export default function GeoTest(params) {
     const defaultPoints = params.points;
 
     //POINTS ON MAP
@@ -330,7 +329,7 @@ export const GeoTest = params => {
     return (
         <div style={{height: '100vh'}}>
             <div className="fixed">
-                <Link to="/" className="link">Strona główna</Link> - <span onClick={() => reset()} className="link">Zmień tryb/reset</span>
+                <Link href="/" className="link">Strona główna</Link> - <span onClick={() => reset()} className="link">Zmień tryb/reset</span>
             </div>
 
 
@@ -411,7 +410,7 @@ export const GeoTest = params => {
                     </div>
 
                     <div>
-                        <span onClick={() => reset()} className="link">Zmień tryb</span> - <Link className="link" to="/">Strona główna</Link>
+                        <span onClick={() => reset()} className="link">Zmień tryb</span> - <Link className="link" href="/">Strona główna</Link>
                     </div>
                 </div>)
             }

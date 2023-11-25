@@ -1,11 +1,12 @@
-import {Link, useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
-import {getLeaderboardData} from "../utils/api.ts";
+import {getLeaderboardData} from "../../utils/api.ts";
+import {useRouter} from "next/router";
+import Link from 'next/link'
 
-export const Leaderboard = () => {
+export default function Leaderboard() {
     const [loaded, setLoaded] = useState(false)
     const [error, setError] = useState()
-    const { testId } = useParams()
+    const { testId } = useRouter().query
 
     const [leaderboardData, setLeaderboardData] = useState([]);
 
@@ -28,7 +29,7 @@ export const Leaderboard = () => {
 
     return (
         <div>
-            <Link to="/">Strona główna</Link>
+            <Link href="/">Strona główna</Link>
             <h1>Tablica wyników dla testu "{testId}"</h1>
             {
                 loaded ?
@@ -44,7 +45,7 @@ export const Leaderboard = () => {
                         {leaderboardData.map((result, index) => (
                             <tr>
                                 <td>{index+1}</td>
-                                <td>{result.anonym ? <span>{result.user}</span> : <Link className="link" to={`/user/${result.user}`}>{result.user}</Link>}</td>
+                                <td>{result.anonym ? <span>{result.user}</span> : <Link className="link" href={`/user/${result.user}`}>{result.user}</Link>}</td>
                                 <td>{result.points.toString()}</td>
                                 <td>{(result.time).toString()}s</td>
                                 <td>{(result.accuracy).toString()}%</td>
