@@ -11,7 +11,6 @@ export default async function get(req: NextApiRequest, res) {
         const result = await db
             .collection("tests")
             .findOne({id: testId});
-
         res.json({success: true, result});
     } catch (e) {
         res.json({success: false, message: e.message});
