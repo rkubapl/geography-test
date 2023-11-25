@@ -1,8 +1,7 @@
 import clientPromise from "../../../../lib/mongodb";
-import {useRouter} from "next/router";
 import {NextApiRequest} from "next";
 
-export default async (req: NextApiRequest, res) => {
+export default async function get(req: NextApiRequest, res) {
     try {
         const {testId} = req.query;
 

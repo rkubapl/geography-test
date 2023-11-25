@@ -113,37 +113,37 @@ export default function Page() {
                 </div>
             </div>
             <br />
-            {/*{ userData ?*/}
-            {/*    (*/}
-            {/*        <div>*/}
-            {/*            <h2>Zalogowano!</h2>*/}
-            {/*            <label>Nickname: {userData.nickname}</label>*/}
-            {/*            <br />*/}
-            {/*            <Link to={`/user/${userData.nickname}`}>Statystyki</Link>*/}
-            {/*            <br />*/}
-            {/*            <button className="btn btn-primary" onClick={logout}>Wyloguj</button>*/}
-            {/*        </div>*/}
-            {/*    )   :*/}
-            {/*    (*/}
-            {/*        <div className="col-5">*/}
-            {/*            <h2 className="font-weight-bold">Logowanie/Rejestracja</h2>*/}
-            {/*                <div className="mb-3">*/}
-            {/*                    <label className="form-label">Nickname</label>*/}
-            {/*                    <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value={nickname} onChange={e => setNickname(e.target.value)} />*/}
-            {/*                </div>*/}
-            {/*                <div className="mb-3">*/}
-            {/*                    <label className="form-label">Hasło</label>*/}
-            {/*                    <input type="password" className="form-control" id="exampleInputPassword1" value={password} onChange={e => setPassword(e.target.value)} />*/}
-            {/*                </div>*/}
-            {/*                <div className="btn-group">*/}
-            {/*                    <button type="submit" className="btn btn-primary" onClick={() => handleUser('login')}>Zaloguj</button>*/}
-            {/*                    <button type="submit" className="btn btn-secondary" onClick={() => handleUser('register')}>Zarejestruj</button>*/}
-            {/*                </div>*/}
-            {/*                <br />*/}
-            {/*                {errorMessage && <span>{errorMessage}</span>}*/}
-            {/*        </div>*/}
-            {/*    )*/}
-            {/*}*/}
+            { userData ?
+                (
+                    <div>
+                        <h2>Zalogowano!</h2>
+                        <label>Nickname: {userData.nickname}</label>
+                        <br />
+                        <Link href={`/user/${userData.nickname}`}>Statystyki</Link>
+                        <br />
+                        <button className="btn btn-primary" onClick={logout}>Wyloguj</button>
+                    </div>
+                )   :
+                (
+                    <div className="col-5">
+                        <h2 className="font-weight-bold">Logowanie/Rejestracja</h2>
+                            <div className="mb-3">
+                                <label className="form-label">Nickname</label>
+                                <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value={nickname} onChange={e => setNickname(e.target.value)} />
+                            </div>
+                            <div className="mb-3">
+                                <label className="form-label">Hasło</label>
+                                <input type="password" className="form-control" id="exampleInputPassword1" value={password} onChange={e => setPassword(e.target.value)} />
+                            </div>
+                            <div className="btn-group">
+                                <button type="submit" className="btn btn-primary" onClick={() => handleUser('login')}>Zaloguj</button>
+                                <button type="submit" className="btn btn-secondary" onClick={() => handleUser('register')}>Zarejestruj</button>
+                            </div>
+                            <br />
+                            {errorMessage && <span>{errorMessage}</span>}
+                    </div>
+                )
+            }
             < br/>
             <div className="text-center">
                 <span>Strona stworzona przez <a href="https://github.com/rkubapl" target="_blank" rel="noreferrer">Jakub "rkubapl" Rajchel</a>. Kod źródłowy projektu jest otwarty i znajduje się <a href="https://github.com/rkubapl/geography-test" target="_blank" rel="noreferrer">tutaj</a>.</span>

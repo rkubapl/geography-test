@@ -1,5 +1,5 @@
 import {useSearchParams} from "react-router-dom";
-import {GeoTest} from "../components/GeoTest";
+import GeoTest from "../components/GeoTest";
 import {isAllowedDomain, isJson, isURL} from "../utils";
 import {useEffect, useState} from "react";
 import {Base64} from "js-base64";

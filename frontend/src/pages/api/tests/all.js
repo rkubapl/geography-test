@@ -1,6 +1,6 @@
 import clientPromise from "../../../../lib/mongodb";
 
-export default async (req, res) => {
+export default async function all(req, res) {
     try {
         const client = await clientPromise;
         const db = client.db("geography-api");
