@@ -8,11 +8,21 @@ export function getTest(id: string) {
     return fetch(`/api/tests/get?testId=${id}`)
 }
 
+export function uploadResult(testId, points, time, accuracy, mode) {
+    let headers = {'Content-Type': 'application/json'};
+
+    return fetch(`/api/result/upload`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({testId, points, time, accuracy, mode})
+    })
+}
+
 export function sendResultAPI(token, testId, points, time, accuracy) {
     let headers = {Authorization: `Bearer ${token}`, 'Content-Type': 'application/json'};
     if(token && token !== "") headers.Authorization = `Bearer ${token}`;
 
-    return fetch(`${apiUrl}/api/result/create`, {
+    return fetch(`${apiUrl}/api/result/upload`, {
         method: 'POST',
         headers,
         body: JSON.stringify({testId, points, time, accuracy})

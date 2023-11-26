@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react'
 import { Map, Marker } from 'react-canvas-map'
 import Link from "next/link";
 import {getCookie} from "../utils/cookies";
-import {sendResultAPI} from "../utils/api.ts";
+import {sendResultAPI, uploadResult} from "../utils/api.ts";
 
 export default function GeoTest(params) {
     const defaultPoints = params.points;
@@ -230,14 +230,16 @@ export default function GeoTest(params) {
 
 
     function sendResult(finPoints, time, accuracy) {
-        const token = getCookie('token');
+        // const token = getCookie('token');
         // if(!token) return;
 
-        sendResultAPI(token, params.testId, finPoints, time, accuracy*100)
+        uploadResult(params.testId, finPoints, time, accuracy*100, mode)
             .then(resp => resp.json())
             .then(json => {
                 if(json.success) {
                     setResultUploaded(true)
+                } else {
+                    setErrWhenUploading(true)
                 }
             }).catch(() => setErrWhenUploading(true))
     }

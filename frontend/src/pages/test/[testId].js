@@ -2,6 +2,7 @@ import GeoTest from "../../components/GeoTest";
 import {getTest} from "../../utils/api.ts";
 import {useEffect, useState} from "react";
 import {useRouter} from "next/router";
+import Head from "next/head";
 
 export default function TestId() {
     const { testId } = useRouter().query
@@ -32,10 +33,16 @@ export default function TestId() {
     }, [router.isReady])
 
     return (
-        (loaded && test) ?
-            // <p>essa</p>
-            <GeoTest testId={testId} imageURL={test.imageURL} points={test.points} pointSize={test.pointSize} />
-        :
-            <span>{error ? error : "Ładowanie testu..."}</span>
+        <div>
+            <Head>
+                <title>Test {testId}</title>
+            </Head>
+            {(loaded && test) ?
+                // <p>essa</p>
+                <GeoTest testId={testId} imageURL={test.imageURL} points={test.points} pointSize={test.pointSize} />
+                :
+                <span>{error ? error : "Ładowanie testu..."}</span>
+            }
+        </div>
     )
 }
