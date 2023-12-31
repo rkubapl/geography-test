@@ -164,7 +164,7 @@ export default function Page() {
             {/*}*/}
             < br/>
             <div className="text-center">
-                <span>Strona stworzona przez <a href="https://github.com/rkubapl" target="_blank" rel="noreferrer">Jakub "rkubapl" Rajchel</a>. Kod źródłowy projektu jest otwarty i znajduje się <a href="https://github.com/rkubapl/geography-test" target="_blank" rel="noreferrer">tutaj</a>.</span>
+                <span>Strona stworzona przez <a href="https://github.com/rkubapl" target="_blank" rel="noreferrer">Kuba "rkubapl" R</a>. Kod źródłowy projektu jest otwarty i znajduje się <a href="https://github.com/rkubapl/geography-test" target="_blank" rel="noreferrer">tutaj</a>.</span>
             </div>
         </div>
     )
