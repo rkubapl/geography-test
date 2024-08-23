@@ -9,6 +9,7 @@
     left: 50%;
     transform: translate(-50%, 0);
 }
+
 .card {
     top: 2%;
     position: fixed;
@@ -23,6 +24,8 @@
 
     text-align: center;
     cursor: pointer;
+
+    display: block;
 }
 
 .flip {

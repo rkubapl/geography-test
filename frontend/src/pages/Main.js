@@ -4,140 +4,46 @@ import {deleteCookie, setCookie} from "../utils/cookies";
 import {getUserInfo, handleUserAPI, getTests} from "../utils/api.ts";
 
 export const Main = () => {
-    const [loaded, setLoaded] = useState(false)
-    const [error, setError] = useState("")
     const [tests, setTests] = useState([])
-
-    const [userData, setUserData] = useState(undefined)
-
-    const [nickname, setNickname] = useState("")
-    const [password, setPassword] = useState("")
-    const [errorMessage, setErrorMessage] = useState("")
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState()
 
     useEffect(() => {
-        getTests()
-            .then(resp => resp.json())
-            .then(json => {
-                setLoaded(true)
-
-                if(json.success) {
-                    setTests(json.results)
-                } else {
-                    setError("Błąd: " + json.message)
-                }
-            }).catch(err => {
-                setLoaded(true)
-                setError("Błąd: " + err.message)
-            })
-
-        const token = getCookie("token")
-
-        if(token !== "") {
-            getUserInfo(token)
-                .then(resp => resp.json())
-                .then(json => {
-                    if(json.success) {
-                        setUserData(json.data)
-                    }
-                })
-                .catch(() => setErrorMessage("System punktacji jest wyłączony."))
+        const fetchTests = async () => {
+            try {
+                const req = await fetch("/tests.json");
+                if(!req.ok) throw new Error()
+                
+                setTests(await req.json())
+                setLoading(false)
+            } catch(err) {
+                setLoading(false)
+                setError("Nie udało się pobrać listy testów :(")
+            }
         }
+
+        fetchTests()
     }, [])
 
-    function handleUser(mode) {
-        handleUserAPI(mode, nickname, password)
-            .then(resp => resp.json())
-            .then(json => {
-                if(json.success) {
-                    setUserData(json.user)
-                    setCookie("token", json.data, 14)
-                } else {
-                    setErrorMessage(json.message)
-                }
-            })
-            .catch(() => setErrorMessage("System punktacji jest wyłączony."))
-    }
-
-    function logout() {
-        deleteCookie("token")
-        setUserData(undefined)
-    }
-
-    function getCookie(key) {
-        const b = document.cookie.match("(^|;)\\s*" + key + "\\s*=\\s*([^;]+)");
-        return b ? b.pop() : "";
-    }
-
-
+   
     return (
-        <div className="container">
+        <div className="max-w-screen-xl m-auto text-center flex justify-between flex-col min-h-screen">
             <div>
-                <h1>Geografia - Nauka map</h1>
-                <a href="https://dev-geography-test.vercel.app/" target="_blank" rel="noreferrer">Wersja BETA (więcej opcji testów)</a>
+                <h1 className="text-3xl font-bold block mt-3">Geografia - Nauka map</h1>
+                {/* <a href="https://dev-geography-test.vercel.app/" target="_blank" rel="noreferrer">Wersja BETA (więcej opcji testów)</a> */}
                 <div className="mt-3">
-                    {!loaded && <span>Ładowanie testów...</span>}
-                    {(loaded && error) &&<span>{error}</span>}
-                    {(loaded && tests && !error) &&
-                        (
-                            <div>
-                                <span>Wyróżnione testy</span>
-                                {
-                                    tests.filter(t => t.distinguishPoints > 0).map(test => (
-                                        <div>
-                                            <Link to={"/test/" + test.id}>{test.name}</Link> (<Link to={"/leaderboard/" + test.id}>Tablica wyników</Link>)
-                                        </div>
-                                    ))
-                                }
-                                <span>Inne testy</span>
-                                {
-                                    tests.filter(t => t.distinguishPoints === 0).map(test => (
-                                        <div>
-                                            <Link to={"/test/" + test.id}>{test.name}</Link> (<Link to={"/leaderboard/" + test.id}>Tablica wyników</Link>)
-                                        </div>
-                                    ))
-                                }
-                            </div>
-                        )}
-                    <br/>
-                    <Link to={"/create"}>Stwórz własny test</Link>
-                    <br/>
-                    <Link to="/poradnik">Poradnik</Link>
+                    {loading && <span>Ładowanie danych...</span> }
+                    {error && <span>{error}</span> }
+                    { tests && tests.map(test => <Link to={`/test/${test.id}`}>{test.name}</Link>)}
+                    {/* <br/>
+                    <br/> */}
+                    {/* <Link to={"/create"}>Stwórz własny test</Link>
+                    <br/> */}
+                    <br /><br />
+                    <Link to="/poradnik">Poradnik</Link> 
                 </div>
             </div>
-            <br />
-            { userData ?
-                (
-                    <div>
-                        <h2>Zalogowano!</h2>
-                        <label>Nickname: {userData.nickname}</label>
-                        <br />
-                        <Link to={`/user/${userData.nickname}`}>Statystyki</Link>
-                        <br />
-                        <button className="btn btn-primary" onClick={logout}>Wyloguj</button>
-                    </div>
-                )   :
-                (
-                    <div className="col-5">
-                        <h2 className="font-weight-bold">Logowanie/Rejestracja</h2>
-                            <div className="mb-3">
-                                <label className="form-label">Nickname</label>
-                                <input type="text" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value={nickname} onChange={e => setNickname(e.target.value)} />
-                            </div>
-                            <div className="mb-3">
-                                <label className="form-label">Hasło</label>
-                                <input type="password" className="form-control" id="exampleInputPassword1" value={password} onChange={e => setPassword(e.target.value)} />
-                            </div>
-                            <div className="btn-group">
-                                <button type="submit" className="btn btn-primary" onClick={() => handleUser('login')}>Zaloguj</button>
-                                <button type="submit" className="btn btn-secondary" onClick={() => handleUser('register')}>Zarejestruj</button>
-                            </div>
-                            <br />
-                            {errorMessage && <span>{errorMessage}</span>}
-                    </div>
-                )
-            }
-            < br/>
-            <div className="text-center">
+            <div className="text-center mb-5">
                 <span>Strona stworzona przez <a href="https://github.com/rkubapl" target="_blank" rel="noreferrer">rkubapl</a>. Kod źródłowy projektu jest otwarty i znajduje się <a href="https://github.com/rkubapl/geography-test" target="_blank" rel="noreferrer">tutaj</a>.</span>
             </div>
         </div>

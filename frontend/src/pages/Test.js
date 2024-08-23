@@ -2,28 +2,37 @@ import {useParams} from "react-router-dom";
 import {GeoTest} from "../components/GeoTest";
 import {getTest} from "../utils/api.ts";
 import {useEffect, useState} from "react";
+import {getUserInfo, handleUserAPI, getTests} from "../utils/api.ts";
 
 export const Test = () => {
     const [test, setTest] = useState({})
     const [error, setError] = useState("")
-    const [loaded, setLoaded] = useState(false)
+    const [loaded, setLoaded] = useState("")
 
     const { testId } = useParams()
-    // const test = tests[testId]
 
     useEffect(() => {
-        getTest(testId)
-            .then(resp => resp.json())
-            .then(json => {
-                setLoaded(true)
-                if(json.success) {
-                    setTest(json.result)
+        const fetchTest = async () => {
+            try {
+                const req = await fetch("/tests.json");
+                if(!req.ok) throw new Error()
+                
+                const tests = await req.json();
+
+                const jsonTest = tests.find(t => t.id == testId)
+                
+                if (jsonTest) {
+                    setTest(jsonTest)
+                    setLoaded(true)
                 } else {
-                    setError(json.message)
+                    setError("Nie znaleziono testu!")
                 }
-            })
-            .catch(err => setError(err.message))
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+            } catch(err) {
+                setError("Nie udało się pobrać testów :(")
+            }
+        }
+
+        fetchTest()
     }, [])
 
     return (
