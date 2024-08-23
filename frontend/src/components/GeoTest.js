@@ -247,6 +247,7 @@ export const GeoTest = params => {
                     <span className='block text-sm flex justify-center gap-2'><a onClick={() => reset()}>Resetuj/Zmień tryb gry</a></span>
                 </div>)
             } 
+            
             <Map
                 image={params.imageURL}
                 onClick={creatorMode && handleMapClick}
