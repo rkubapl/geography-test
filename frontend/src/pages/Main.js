@@ -34,7 +34,7 @@ export const Main = () => {
                 <div className="mt-3">
                     {loading && <span>Ładowanie danych...</span> }
                     {error && <span>{error}</span> }
-                    { tests && tests.map(test => <Link to={`/test/${test.id}`}>{test.name}</Link>)}
+                    { tests && tests.map(test => <Link to={`/test/${test.id}`} className="block my-2">{test.name}</Link>)}
                     {/* <br/>
                     <br/> */}
                     {/* <Link to={"/create"}>Stwórz własny test</Link>
@@ -44,7 +44,7 @@ export const Main = () => {
                 </div>
             </div>
             <div className="text-center mb-5">
-                <span>Strona stworzona przez <a href="https://github.com/rkubapl" target="_blank" rel="noreferrer">rkubapl</a>. Kod źródłowy projektu jest otwarty i znajduje się <a href="https://github.com/rkubapl/geography-test" target="_blank" rel="noreferrer">tutaj</a>.</span>
+                <span>Strona stworzona przez <a href="https://github.com/rkubapl" target="_blank" rel="noreferrer">Kuba Rajchel "rkubapl"</a>. Kod źródłowy projektu jest otwarty i znajduje się <a href="https://github.com/rkubapl/geography-test" target="_blank" rel="noreferrer">tutaj</a>.</span>
             </div>
         </div>
     )

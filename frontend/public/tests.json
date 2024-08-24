@@ -4,6 +4,69 @@
         "name": "Rzeki w Polsce",
         "pointSize": 300,
         "imageURL": "/maps/mapa-rzek.jpg",
-        "points": [{"x":1657,"y":1036,"n":"Wisła"}, {"x":1371,"y":1147,"n":"Noteć"}]
+        "points": [{"x":1657,"y":1036,"n":"Wisła"},{"x":1371,"y":1147,"n":"Noteć"},{"x":2233,"y":1827,"n":"Pilica"},{"x":2748,"y":1824,"n":"Wieprz"},{"x":2785,"y":2373,"n":" San"},{"x":2418,"y":2615,"n":"Dunajec"},{"x":557,"y":1258,"n":"Odra"},{"x":853,"y":1922,"n":"Bóbr"},{"x":1210,"y":1851,"n":"Barycz"},{"x":1297,"y":2352,"n":"Nysa Kłodzka"},{"x":2001,"y":1598,"n":"Bzura"},{"x":1519,"y":1676,"n":"Prosna"},{"x":1149,"y":1312,"n":"Warta"},{"x":1644,"y":2282,"n":"Mała Panew"},{"x":2014,"y":2514,"n":"Krzeszówka"},{"x":2721,"y":1322,"n":"Bug"},{"x":627,"y":1824,"n":"Nysa Łużycka"},{"x":2496,"y":1275,"n":"Narew"},{"x":2223,"y":1312,"n":"Wkra"},{"x":1671,"y":831,"n":"Wda"},{"x":2422,"y":1195,"n":"Orzyc"},{"x":1950,"y":1067,"n":"Drwęca"},{"x":792,"y":1023,"n":"Ina"},{"x":839,"y":807,"n":"Rega"},{"x":1254,"y":568,"n":"Wieprza"},{"x":1428,"y":603,"n":"Słupia"},{"x":2593,"y":996,"n":"Pisa"},{"x":2087,"y":629,"n":"Pasłęka"},{"x":2259,"y":2326,"n":"Nida"},{"x":2540,"y":2460,"n":"Wisłoka"},{"x":2799,"y":976,"n":"Biebrza"},{"x":1530,"y":976,"n":"Brda"},{"x":1883,"y":2672,"n":"Soła"}]
+    },
+    {
+        "id": "krainy",
+        "name": "Krainy geograficzne w Polsce",
+        "pointSize": 300,
+        "imageURL": "/maps/mapa-1.png",
+        "points": [{"x":749,"y":757,"n":"Pobrzeże Szczecińskie"},{"x":1252,"y":528,"n":"Pobrzeże Koszalińskie"},{"x":2426,"y":800,"n":"Pojezierze Mazurskie"},{"x":1223,"y":947,"n":"Pojezierze Pomorskie"},{"x":2890,"y":1107,"n":"Nizina Północnopodlaska"},{"x":685,"y":1444,"n":"Pojezierze Lubuskie"},{"x":2250,"y":1420,"n":"Nizina Mazowiecka"},{"x":2812,"y":1469,"n":"Nizina Południowopodlaska"},{"x":2814,"y":2097,"n":"Wyżyna Lubelska"},{"x":2278,"y":2171,"n":"Wyżyna Małopolska"},{"x":1750,"y":2458,"n":"Wyżyna Śląska"},{"x":1975,"y":2350,"n":"Wyżyna Krakowsko-Częstochowska"},{"x":1025,"y":2506,"n":"Sudety"},{"x":2139,"y":2907,"n":"Karpaty"},{"x":1810,"y":634,"n":"Żuławy Wiślane"},{"x":1297,"y":1378,"n":"Pojezierze Wielkopolskie"},{"x":1600,"y":1764,"n":"Nizina Południowowielkopolska"},{"x":1259,"y":2302,"n":"Nizina Śląska"},{"x":2660,"y":2397,"n":"Kotlina Sandomierska"},{"x":1817,"y":2598,"n":"Kotlina Oświęcimska"}]
+    },
+    {
+        "id": "megaregiony",
+        "name": "Megaregiony w Polsce",
+        "pointSize": 100,
+        "imageURL": "/maps/mapa-2.jpg",
+        "points": [{"x":168,"y":165,"n":"Pozaalpejska Europa Środkowa"},{"x":346,"y":77,"n":"Niż Wschodnioeuropejski"},{"x":297,"y":336,"n":"Karpaty, Podkarpacie i Nizina Panońska"}]
+    },
+    {
+      "id": "prowincje",
+      "name": "Prowincje w Polsce",
+      "pointSize": 70,
+      "imageURL": "/maps/mapa-2.jpg",
+      "points": [{"x":179,"y":161,"n":"Niż Środkowoeuropejski"},{"x":85,"y":271,"n":"Masyw Czeski"},{"x":279,"y":272,"n":"Wyżyny Polskie"},{"x":351,"y":87,"n":"Niż Wschodniobałtycko-Białoruski"},{"x":409,"y":281,"n":"Wyżyny Ukraińskie"},{"x":290,"y":331,"n":"Karpaty Zachodnie z Podkarpaciem Zachodnim i Północnym"},{"x":357,"y":374,"n":"Karpaty Wschodnie z Podkarpaciem Wschodnim"}]
+    },
+    {
+      "id": "podprowincje",
+      "name": "Podprowincje w Polsce",
+      "pointSize": 70,
+      "imageURL": "/maps/mapa-2.jpg",
+      "points": [{"x":58,"y":54,"n":"Pobrzeża Południowobałtyckie"},{"x":298,"y":47,"n":"Pobrzeże Wschodniobałtyckie"},{"x":290,"y":71,"n":"Pojezierze Wschodniobałtyckie"},{"x":368,"y":126,"n":"Wysoczyzny Podlasko-Białoruskie"},{"x":386,"y":228,"n":"Polesie"},{"x":410,"y":284,"n":"Wyżyna Wołyńsko-Podolska"},{"x":356,"y":261,"n":"Wyżyna Lubelsko-Lwowska"},{"x":266,"y":266,"n":"Wyżyna Małopolska"},{"x":205,"y":289,"n":"Wyżyna Śląsko-Krakowska"},{"x":337,"y":299,"n":"Podkarpacie Północne"},{"x":239,"y":345,"n":"Zewnętrzne Karpaty Zachodnie"},{"x":247,"y":374,"n":"Centralne Karpaty Zachodnie"},{"x":356,"y":373,"n":"Zewnętrzne Karpaty Wschodnie (Beskidy Wschodnie)"},{"x":67,"y":231,"n":"Niziny Sasko-Łużyckie"},{"x":88,"y":272,"n":"Sudety z Przedgorzem Sudeckim"},{"x":216,"y":202,"n":"Niziny Środkowopolskie"},{"x":129,"y":116,"n":"Pojezierza Południowobałtyckie"},{"x":373,"y":346,"n":"Wschodnie Podkarpacie"}]
+    },
+    {
+      "id": "pradoliny",
+      "name": "Pradoliny w Polsce",
+      "pointSize": 70,
+      "imageURL": "/maps/mapa-pradoliny.jpg",
+      "points": [{"x":164,"y":23,"n":"Pradolina Redy-Łeby"},{"x":80,"y":69,"n":"Pradolina Pomorska"},{"x":325,"y":125,"n":"Pradolina Biebrzy i Narwi"},{"x":114,"y":138,"n":"Pradolina Toruńsko-Eberswaldzka"},{"x":148,"y":196,"n":"Pradolina Warszawsko-Berlińska"},{"x":101,"y":230,"n":"Pradolina Barucko-Głogowska"},{"x":115,"y":271,"n":"Pradolina Wrocławsko-Magdeburska"},{"x":273,"y":321,"n":"Pradolina Górnej Wisły"},{"x":340,"y":327,"n":"Pradolina Podkarpacka"},{"x":313,"y":231,"n":"Pradolina Pillcy-Wieprza-Krzny"}]
+    },
+    {
+      "id": "fortnite",
+      "name": "Mapa Fortnite OG",
+      "pointSize": 300,
+      "imageURL": "/maps/mapa-fortnite.jpg",
+      "points": [{"n":"Wykrzywione Wieże","x":748,"y":1049},{"n":"Lepki Lasek","x":458,"y":1313},{"n":"Spawalnia Spłuczek","x":708,"y":1826},{"n":"Golfowe Gniazdko","x":1092,"y":497},{"n":"Przyjemny Park","x":564,"y":643},{"n":"Widmowe Wzgórza","x":300,"y":450},{"n":"Rozdroża Rupieci","x":396,"y":290},{"n":"Karkołomne Kino","x":1521,"y":432},{"n":"Płacząca Puszcza","x":1669,"y":645},{"n":"Samotne Schronisko","x":1858,"y":954},{"n":"Oaza Odpoczynku","x":1696,"y":1548},{"n":"Wypasiona Wyrwa","x":1221,"y":1058},{"n":"Sklepowa Sadyba","x":1512,"y":1158},{"n":"Zgubne Ziemie","x":1223,"y":1615},{"n":"Pagody Pomyślności","x":1146,"y":1897},{"n":"Szemrane Szyby","x":739,"y":1393},{"n":"Butny Brzeg","x":158,"y":934},{"n":"Pomidorowy Przybytek","x":1341,"y":705},{"n":"Zalew Zdobyczy","x":884,"y":807}]
+    },
+    {
+      "id": "dorzecza-odry",
+      "name": "Dorzecza Odry i rzek przymorza",
+      "pointSize": 300,
+      "imageURL": "/maps/mapa-rzek.jpg",
+      "points": [{"x":1371,"y":1147,"n":"Noteć"},{"x":557,"y":1258,"n":"Odra"},{"x":853,"y":1922,"n":"Bóbr"},{"x":1210,"y":1851,"n":"Barycz"},{"x":1297,"y":2352,"n":"Nysa Kłodzka"},{"x":1519,"y":1676,"n":"Prosna"},{"x":1149,"y":1312,"n":"Warta"},{"x":1644,"y":2282,"n":"Mała Panew"},{"x":627,"y":1824,"n":"Nysa Łużycka"},{"x":792,"y":1023,"n":"Ina"},{"x":839,"y":807,"n":"Rega"},{"x":1254,"y":568,"n":"Wieprza"},{"x":1428,"y":603,"n":"Słupia"}]
+    },
+    {
+      "id": "dorzecza-wisly",
+      "name": "Dorzecza Odry i rzek przymorza",
+      "pointSize": 300,
+      "imageURL": "/maps/mapa-rzek.jpg",
+      "points": [{"x":1657,"y":1036,"n":"Wisła"},{"x":2233,"y":1827,"n":"Pilica"},{"x":2748,"y":1824,"n":"Wieprz"},{"x":2785,"y":2373,"n":" San"},{"x":2418,"y":2615,"n":"Dunajec"},{"x":2001,"y":1598,"n":"Bzura"},{"x":2014,"y":2514,"n":"Krzeszówka"},{"x":2721,"y":1322,"n":"Bug"},{"x":2496,"y":1275,"n":"Narew"},{"x":2223,"y":1312,"n":"Wkra"},{"x":1671,"y":831,"n":"Wda"},{"x":2422,"y":1195,"n":"Orzyc"},{"x":1950,"y":1067,"n":"Drwęca"},{"x":2593,"y":996,"n":"Pisa"},{"x":2087,"y":629,"n":"Pasłęka"},{"x":2259,"y":2326,"n":"Nida"},{"x":2540,"y":2460,"n":"Wisłoka"},{"x":2799,"y":976,"n":"Biebrza"}]
+    },
+    {
+      "id": "dorzecza-wisly-polnoc",
+      "name": "Dorzecza Wisły Północ",
+      "pointSize": 300,
+      "imageURL": "/maps/mapa-rzek.jpg",
+      "points": [{"x":1657,"y":1036,"n":"Wisła"},{"x":2496,"y":1275,"n":"Narew"},{"x":2223,"y":1312,"n":"Wkra"},{"x":1671,"y":831,"n":"Wda"},{"x":2422,"y":1195,"n":"Orzyc"},{"x":1950,"y":1067,"n":"Drwęca"},{"x":2593,"y":996,"n":"Pisa"},{"x":2087,"y":629,"n":"Pasłęka"},{"x":2799,"y":976,"n":"Biebrza"}]
     }
 ]
