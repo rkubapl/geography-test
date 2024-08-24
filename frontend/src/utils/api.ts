@@ -2,7 +2,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 const apiTestsUrl = process.env.REACT_APP_API_CATALOG_URL;
 
 export function getTests() {
-    return fetch(`${apiTestsUrl}/api/tests/all`)
+    return fetch(`/tests.json`)
 }
 
 export function getTest(id: string) {

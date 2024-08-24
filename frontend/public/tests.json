@@ -1,0 +1,9 @@
+[
+    {
+        "id": "rzeki",
+        "name": "Rzeki w Polsce",
+        "pointSize": 300,
+        "imageURL": "/maps/mapa-rzek.jpg",
+        "points": [{"x":1657,"y":1036,"n":"Wisła"}, {"x":1371,"y":1147,"n":"Noteć"}]
+    }
+]

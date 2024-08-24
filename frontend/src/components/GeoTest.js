@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useCallback, useEffect, useState, useRef} from 'react'
 import { Map, Marker } from 'react-canvas-map'
 import "./GeoTest.css"
 import {Link} from "react-router-dom";
@@ -9,21 +9,36 @@ import {sendResultAPI} from "../utils/api.ts";
 export const GeoTest = params => {
     const creatorMode = false;
 
+    const modes = ["Nauka", "Kliknij", "Wpisz"]
+
+    function start() {
+        setStartTime(Date.now())
+        setSetup(false)
+        setCurPoint(0)
+
+        if(mode == 2) {
+            updateState(0, "highlight")
+            setTimeout(() => document.getElementById("input").focus(), 100) //:)
+        }
+    }
+    
+    const [setup, setSetup] = useState(true)
+    const [mode, setMode] = useState(0)
+
+    const [curPoint, setCurPoint] = useState()
+    const [inputValue, setInputValue] = useState("")
+
+
     const [createdPoints, setCreatedPoints] = useState([])
 
     const [startTime, setStartTime] = useState(0);
-    const [finishTime, setFinishTime] = useState(0);
+    const [time, setTime] = useState();
 
     const [isGameOver, setIsGameOver] = useState(false)
     const [nowPoint, setNowPoint] = useState(0)
     const [invalidAttempts, setInvalidAttempts] = useState(0)
 
     const [correctAnswersCount, setCorrectAnswersCount] = useState(0)
-    const [finalPoints, setFinalPoints] = useState(0)
-
-    const [resultUploaded, setResultUploaded] = useState(false)
-    const [errWhenUploading, setErrWhenUploading] = useState(false)
-
 
     const [points, setPoints] = useState([]);
     const [flip, setFlip] = useState(params.f || false);
@@ -31,12 +46,8 @@ export const GeoTest = params => {
     const [learnMode, setLearnMode] = useState(false)
     const [learnModeIndex, setLearnModeIndex] = useState(-1)
 
+    const input = useRef(null)
 
-    useEffect(() => {
-        setPoints(shuffleArray(JSON.parse(JSON.stringify(params.points))));
-        setStartTime(Date.now())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
     function shuffleArray(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -47,71 +58,96 @@ export const GeoTest = params => {
         return array;
     }
 
+    //Start of a game
+    //Shuffle points and start a timer
+    useEffect(() => {
+        reset()
+    }, [])
+
     useEffect(() => {
         if(isGameOver) {
-            const finTime = Date.now()
-            setFinishTime(finTime)
-            countPoints(finTime)
+            setTime(((Date.now()-startTime)/1000).toFixed(2))
+            setCorrectAnswersCount(points.reduce((acc, val) => acc + (val.state == "correct"), 0))
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isGameOver])
 
 
     useEffect(() => {
         reset()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [learnMode])
 
-
-    function handleClick(index) {
-        if(isGameOver) return;
-
-        if(creatorMode || learnMode) {
-            setLearnModeIndex(index)
-            return;
-        }
-
-        let state;
-
-        if(nowPoint === index) {
-            if(invalidAttempts === 0) state = "correct"
-            else if(invalidAttempts < 3) state = "kinda"
-            else state = "invalid"
-
-            setInvalidAttempts(0)
-
-            if(points.length === nowPoint+1) {
-                setIsGameOver(true)
-            } else {
-                setNowPoint(prevNowPoint => prevNowPoint+1);
-            }
-        } else {
-            if(invalidAttempts+1 < 3) {
-                setInvalidAttempts(attempts => attempts+1);
-            } else if(invalidAttempts+1 === 3) {
-                state = "highlight"
-                setInvalidAttempts(attempts => attempts+1);
-            } else {
-                return;
-            }
-        }
-
-        setPoints(prevPoints => prevPoints.map((point, pointIndex) => nowPoint === pointIndex ? {...point, state} : point))
+    function updateState(index, state) {
+        setPoints(prevP => prevP.map((p, pIndex) => index === pIndex ? {...p, state} : p))
     }
 
-    function countPoints(finTime) {
-        let correctAnswers = 0;
+    function handleClick(index) {
+        if(setup) return
 
-        points.forEach(point => {
-            if(point.state === "correct") correctAnswers++;
-        })
+        if(mode == 0) { // Nauka
+            return setCurPoint(index)
+        }
 
-        setCorrectAnswersCount(correctAnswers)
+        if(mode == 1) { //Kliknij
+            if(curPoint == index) { //user clicked correct point
+                if(invalidAttempts === 0) updateState(index, "correct")
+                else if(invalidAttempts < 3) updateState(index, "kinda")
+                else updateState(index, "invalid")
+                setPoints(prevPoints => prevPoints.map(p => p.state == "highlight" ? {...p, state: "point"} : p)) //clear highlighted points
 
-        const finPoints = calculatePoints((finTime-startTime)/1000, correctAnswers/points.length, 150, 5000);
-        setFinalPoints(finPoints)
+                setInvalidAttempts(0)
 
-        sendResult(finPoints, (finTime-startTime)/1000, correctAnswers/points.length);
+                if(curPoint+1 < points.length) {
+                    setCurPoint(prevState => prevState+1);
+                } else {
+                    setIsGameOver(true)
+                }
+            } else {
+                setInvalidAttempts(attempts => attempts+1);
+                updateState(index, "highlight")
+            }
+        }
+    }
+
+    const polChars = ["ą", "ć", "ę", "ł", "ń", "ó", "ś", "ż", "ź"]
+    const norChars = ["a", "c", "e", "l", "n", "o", "s", "z", "z"]
+
+    function normalizeString(str) {
+        str = str.toLowerCase();
+
+        for (let i = 0; i < polChars.length; ++i) {
+            str = str.replaceAll(polChars[i], norChars[i]);
+        }
+
+        return str;
+    }
+        
+    function handleInputChange(e) {
+        const { value } = e.target;
+        
+        if(normalizeString(value) === normalizeString(points[curPoint].n)) {
+            updateState(curPoint, "correct")
+            setInputValue("")
+
+            if(curPoint+1 < points.length) {
+                setCurPoint(prevState => prevState+1);
+                updateState(curPoint+1, "highlight")
+            } else {
+                setIsGameOver(true)
+            }
+        } else {
+            setInputValue(value)
+        }
+    }
+
+    function skip() {
+        updateState(curPoint, "invalid")
+
+        if(curPoint < points.length) {
+            setCurPoint(prevState => prevState+1);
+            updateState(curPoint+1, "highlight")
+        } else {
+            setIsGameOver(true)
+        }
     }
 
     function loadImage(src) {
@@ -127,27 +163,29 @@ export const GeoTest = params => {
     const [kindaPoint] = useState(() => loadImage('/svg/point-kinda.svg'))
 
     function chooseImage(state, index) {
-        if (learnMode) {
-            if(index === learnModeIndex) return highlightPoint;
-            else return point;
-        } else {
-            if(state === "highlight") return highlightPoint;
-            if(state === "correct") return correctPoint;
-            if(state === "kinda") return kindaPoint;
-            if(state === "invalid") return invalidPoint;
+        if(setup) return point;
+
+        if(mode == 0) { //Nauka
+            if(index === curPoint) return highlightPoint;
             else return point;
         }
+
+        if(state === "highlight") return highlightPoint;
+        if(state === "correct") return correctPoint;
+        if(state === "kinda") return kindaPoint;
+        if(state === "invalid") return invalidPoint;
+        else return point;
     }
 
     function reset() {
+        setPoints(prevPoints => prevPoints.map(point => ({...point, state: "p"})))
         setPoints(shuffleArray(JSON.parse(JSON.stringify(params.points))));
-        setIsGameOver(false)
+        
         setInvalidAttempts(0)
-        setNowPoint(0)
-        setCorrectAnswersCount(0)
-        setStartTime(Date.now())
-        setResultUploaded(false)
-        setErrWhenUploading(false)
+        setCurPoint(undefined)
+
+        setIsGameOver(false)
+        setSetup(true)
     }
 
     const handleMapClick = useCallback(coords => {
@@ -159,54 +197,57 @@ export const GeoTest = params => {
         setPoints(prevPoints => [...prevPoints, point])
     }, [])
 
-    function calculatePoints(time, accuracy, timeLimit, maxPoints) {
-        if(time > timeLimit) return 0;
-
-        const points = (maxPoints*(timeLimit-time)^2)/timeLimit^2;
-        return Math.round(points*accuracy)
-    }
-
-
-    function sendResult(finPoints, time, accuracy) {
-        const token = getCookie('token');
-        // if(!token) return;
-
-        sendResultAPI(token, params.testId, finPoints, time, accuracy*100)
-            .then(resp => resp.json())
-            .then(json => {
-                if(json.success) {
-                    setResultUploaded(true)
-                }
-            }).catch(() => setErrWhenUploading(true))
-    }
-
     return (
         <div style={{height: '100vh'}}>
-            <div className="fixed">
-                <Link to="/" className="link">Strona główna</Link> - <span className="link" onClick={() => setLearnMode(prevState => !prevState)}>Tryb nauki: {learnMode ? "ON" : "OFF"}</span>
+            <div className="fixed gap-2">
+                <Link to="/" className="link">Strona główna</Link> - <a onClick={() => reset()}>Resetuj/Zmień tryb gry</a>
             </div>
             {creatorMode && JSON.stringify(createdPoints)}
-            { !isGameOver && points.length > 0
-                &&
-                (<div className={`card ${flip ? 'flip' : ""}`} onClick={() => setFlip(prevFlip => !prevFlip)}>
-                    <span className="medium">{learnMode ? "Kliknąłeś w" : "Kliknij w"}</span>
-                    <h1 className="pointName">{learnMode ? (learnModeIndex !== -1 ? points[learnModeIndex].n : "Kliknij w punkt na mapie") : points[nowPoint].n}</h1>
-                    {!learnMode && <span className="tries">Próba {invalidAttempts}/3<br /></span>}
-                    <span className="small">Klinij w kartę aby przenieść ją na drugą stronę ekranu</span>
-                </div>)
+            
+            { setup &&
+                <div className={`card`} >
+                    <span className="text-2xl font-bold">Wybierz tryb gry</span>
+                    <div className="flex flex-row justify-center gap-5 mt-2">
+                        {modes.map((m, i) => <a className={`text-teal-500 text-lg ${i == mode ? 'underline' : 'no-underline'}`} onClick={() => setMode(i)}>{m}</a>)}
+                    </div>
+                    <a className='text-teal-700 block mt-3' onClick={() => start()}>Start</a>
+                </div>
             }
+
+            { !setup && mode == 0 &&
+                <div className={`card ${flip ? 'flip' : ""}`} onClick={() => setFlip(prev => !prev)}>
+                    <span className='text-base block font-light'>Aktualny punkt</span>
+                    <span className="text-2xl block font-bold">{curPoint !== undefined ? points[curPoint].n : "Kliknij w punkt"}</span>
+                    {/* <span className="text-xs block mt-1">Klinij w kartę aby przenieść ją na drugą stronę ekranu</span> */}
+                </div>
+            }
+
+            { !setup && mode == 1 &&
+                <div className={`card ${flip ? 'flip' : ""}`} onClick={() => setFlip(prev => !prev)}>
+                    <span className='text-base block font-light'>Kliknij w</span>
+                    <span className="text-3xl font-bold">{points[curPoint].n}</span>
+                    {/* <span className='block text-sm flex justify-center gap-2'><a>Resetuj</a> <a>Zmień tryb</a></span> */}
+                </div>
+            }
+
+            { !setup && mode == 2 &&
+                <div className={`card`} >
+                    <input id="input" className="w-full h-7 rounded-lg border-gray-600 border-2" placeholder="Wpisz niebieski punkt" value={inputValue} onChange={handleInputChange} />
+                    <span className='block text-sm flex justify-center gap-2'>
+                        <a onClick={() => skip()}>Skip</a>
+                    </span>
+                </div>
+            }
+
             {
                 isGameOver &&
                 (<div className="card">
-                    <span>Liczba prawidłowych odpowiedzi</span>
-                    <h1>{correctAnswersCount}/{points.length}</h1>
-                    <span>{Math.floor((correctAnswersCount/points.length)*100)}% - {Math.round((finishTime-startTime)/1000*10)/10}s - {finalPoints} punktów</span>
-                    <span>{resultUploaded ? "Przesłano wyniki!" : (errWhenUploading ? "Błąd podczas przesyłania wyniku" : "Przesyłanie wyniku...")}</span>
-                    <div>
-                        <span onClick={reset} className="link">Kliknij aby zresetować</span> - <Link className="link" to="/">Strona główna</Link>
-                    </div>
+                    <span className='text-xl block font-bold'>Wynik</span>
+                    <span className='text-base'>{correctAnswersCount}/{points.length} - {time}s - {Math.floor((correctAnswersCount/points.length)*100)}%</span>
+                    <span className='block text-sm flex justify-center gap-2'><a onClick={() => reset()}>Resetuj/Zmień tryb gry</a></span>
                 </div>)
-            }
+            } 
+            
             <Map
                 image={params.imageURL}
                 onClick={creatorMode && handleMapClick}
