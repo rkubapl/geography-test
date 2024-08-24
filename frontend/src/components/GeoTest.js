@@ -383,7 +383,7 @@ export const GeoTest = params => {
                             markerKey={`marker-${index}`}
                             coords={{x: point.x, y: point.y}}
                             image={chooseImage(point.state, index)}
-                            // onClick={() => handleClick(index)}
+                            onClick={() => handleClick(index)}
                         />
                     ))
                 }
