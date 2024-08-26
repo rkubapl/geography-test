@@ -1,8 +1,18 @@
-const array = [true, true, true, true]
-
+const array = [true, true, true, true, true, false, true, true, false, true, true, false, true, false, false, true, true, false, true, true, false, true, true, false, true, true, false, true, true, false, true,]
+console.log(array.length)
 let bitValue = toBitmap(array)
 console.log(bitValue)
+console.log(numHex(bitValue))
 console.log(fromBitmap(bitValue, 20))
+
+function numHex(s)
+{
+    var a = s.toString(16);
+    if ((a.length % 2) > 0) {
+        a = "0" + a;
+    }
+    return a;
+}
 
 function toBitmap(arr) {
     let number = 0;

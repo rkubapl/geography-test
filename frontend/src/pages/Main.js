@@ -39,8 +39,8 @@ export const Main = () => {
                     <br/> */}
                     {/* <Link to={"/create"}>Stwórz własny test</Link>
                     <br/> */}
-                    <br /><br />
-                    <Link to="/poradnik">Poradnik</Link> 
+                    {/* <br /><br /> */}
+                    {/* <Link to="/poradnik">Poradnik</Link>  */}
                 </div>
             </div>
             <div className="text-center mb-5">

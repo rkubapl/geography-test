@@ -4,7 +4,8 @@ import "./GeoTest.css"
 import {Link, useSearchParams } from "react-router-dom";
 import {getCookie} from "../utils/cookies";
 import {sendResultAPI} from "../utils/api.ts";
-
+import TestCanvas from "../pages/TestCanvas.js"
+import { Animation } from 'konva/lib/Animation';
 
 export const GeoTest = params => {
     let [searchParams, setSearchParams] = useSearchParams();
@@ -15,11 +16,20 @@ export const GeoTest = params => {
 
     function start() {
         reset(false)
-        setStartTime(Date.now())
         setSetup(false)
-        setCurPoint(0)
+
+        if(mode == 0) {
+            setCurPoint(undefined)
+        }
+
+        if(mode == 1) {
+            setStartTime(Date.now())
+            setCurPoint(0)
+        }
 
         if(mode == 2) {
+            setCurPoint(0)
+
             updateState(0, "highlight")
             setTimeout(() => document.getElementById("input").focus(), 100) //:)
         }
@@ -75,10 +85,11 @@ export const GeoTest = params => {
             return false;
         }
     }
+
     //Start of a game
     useEffect(() => {
         let pointsArr = JSON.parse(JSON.stringify(params.points));
-        pointsArr = pointsArr.map(point => ({...point, active: true}))
+        pointsArr = pointsArr.map(point => ({...point, state: "active"}))
 
 
         //TODO: Saving active points to query, I though about using bitset for this but it is limited to 32 bits :(
@@ -86,16 +97,17 @@ export const GeoTest = params => {
         // const mapPointsActive = searchParams.get("map-points-active");
 
         // if(mapPointsActive && isNum(mapPointsActive)) {
-        //     const number = Number.parseInt(mapPointsActive)
             
-        //     pointsArr = pointsArr.map((point, i) => {
-        //         return ({...point, active: (number & (1 << i)) === 0 ? false : true})
-        //     })
+            // const number = Number.parseInt(mapPointsActive)
+            
+            // pointsArr = pointsArr.map((point, i) => {
+            //     return ({...point, active: (number & (1 << i)) === 0 ? false : true})
+            // })
         // }
 
         setPoints(pointsArr);
 
-        setGamePoints(pointsArr.filter(point => point.active))
+        setGamePoints(pointsArr.filter(point => point.state == "active"))
 
         reset(false)
     }, [])
@@ -114,26 +126,26 @@ export const GeoTest = params => {
         setGamePoints(prevP => prevP.map((p, pIndex) => index === pIndex ? {...p, state} : p))
     }
 
-    function handleClick(index) {
+    function handleClick(index, evt) {
         if(setup) return
 
         if(editMode) {
-            return setPoints(prev => prev.map((point, i) => i == index ? {...point, active: asActive} : point))
+            return setPoints(prev => prev.map((point, i) => i == index ? {...point, state: asActive ? "active" : "disabled"} : point))
         }
 
         if(mode == 0) { // Nauka
-            return setCurPoint(index)
+            updateState(curPoint, undefined)
+            updateState(index, "highlight")
+            setCurPoint(index)
         }
 
         if(mode == 1) { //Kliknij
-            if(gamePoints[index].state != undefined) return
-
             if(curPoint == index) { //user clicked correct point
                 if(invalidAttempts === 0) updateState(index, "correct")
                 else if(invalidAttempts < 3) updateState(index, "kinda")
                 else updateState(index, "invalid")
-                setGamePoints(prevPoints => prevPoints.map(p => p.state == "highlight" ? {...p, state: undefined} : p)) //clear highlighted points
 
+                setGamePoints(prevPoints => prevPoints.map(p => p.state == "highlight" ? {...p, state: undefined} : p)) //clear highlighted points
                 setInvalidAttempts(0)
 
                 if(curPoint+1 < gamePoints.length) {
@@ -142,20 +154,16 @@ export const GeoTest = params => {
                     setIsGameOver(true)
                 }
             } else {
+                if(invalidAttempts > 2) return
+
                 if(invalidAttempts == 2) {
-                    updateState(curPoint, "invalid")
-                    setInvalidAttempts(0)
                     setGamePoints(prevPoints => prevPoints.map(p => p.state == "highlight" ? {...p, state: undefined} : p)) //clear highlighted points
 
-                    if(curPoint+1 < gamePoints.length) {
-                        setCurPoint(prevState => prevState+1);
-                    } else {
-                        setIsGameOver(true)
-                    }
+                    updateState(curPoint, "superhighlight")
                 } else {
-                    setInvalidAttempts(attempts => attempts+1);
                     updateState(index, "highlight")
                 }
+                setInvalidAttempts(attempts => attempts+1);
             }
         }
     }
@@ -177,7 +185,10 @@ export const GeoTest = params => {
         const { value } = e.target;
         
         if(normalizeString(value) === normalizeString(gamePoints[curPoint].n)) {
-            updateState(curPoint, "correct")
+            if(gamePoints[curPoint].state == "highlight") {
+                updateState(curPoint, "invalid")
+            } else updateState(curPoint, "correct")
+
             setInputValue("")
 
             if(curPoint+1 < gamePoints.length) {
@@ -194,14 +205,6 @@ export const GeoTest = params => {
 
     function skip() {
         setSkippedPoint(gamePoints[curPoint].n)
-        updateState(curPoint, "invalid")
-
-        if(curPoint+1 < gamePoints.length) {
-            setCurPoint(prevState => prevState+1);
-            updateState(curPoint+1, "highlight")
-        } else {
-            setIsGameOver(true)
-        }
     }
 
     function loadImage(src) {
@@ -256,15 +259,6 @@ export const GeoTest = params => {
         if(trueReset) setPointsBeforeImprove(undefined)
     }
 
-    // const handleMapClick = useCallback(coords => {
-    //     const prompt = window.prompt("Podaj nazwę");
-
-    //     const point = {x: Math.floor(coords.x), y: Math.floor(coords.y), name: prompt}
-
-    //     setCreatedPoints(prevPoints => [...prevPoints, point])
-    //     setPoints(prevPoints => [...prevPoints, point])
-    // }, [])
-
     function goToEditMode() {
         setSetup(false)
         setEditMode(true)
@@ -272,7 +266,7 @@ export const GeoTest = params => {
 
     
     function setAll(toState) {
-        setPoints(prev => prev.map(point => ({...point, active: toState})))
+        setPoints(prev => prev.map(point => ({...point, state: toState ? "active" : "disabled"})))
     }
 
 
@@ -280,7 +274,10 @@ export const GeoTest = params => {
         setSetup(true)
         setEditMode(false)
 
-        setGamePoints(points.filter(point => point.active))
+        setGamePoints(prev => {
+            prev = points.filter(point => point.state == "active")
+            return prev.map(point => ({...point, state: undefined}))
+        })
     }
 
     function improve() {
@@ -337,17 +334,13 @@ export const GeoTest = params => {
 
             { !setup && !editMode && mode == 0 &&
                 <div className={`card ${flip ? 'flip' : ""}`} onClick={() => setFlip(prev => !prev)}>
-                    <span className='text-base block font-light'>Aktualny punkt</span>
                     <span className="text-2xl block font-bold">{curPoint !== undefined ? gamePoints[curPoint].n : "Kliknij w punkt"}</span>
-                    {/* <span className="text-xs block mt-1">Klinij w kartę aby przenieść ją na drugą stronę ekranu</span> */}
                 </div>
             }
 
             { !setup && !editMode && !isGameOver && mode == 1 &&
-                <div className={`card ${flip ? 'flip' : ""}`} onClick={() => setFlip(prev => !prev)}>
-                    <span className='text-base block font-light'>Kliknij w</span>
+                <div className="card" onClick={() => setFlip(prev => !prev)}>
                     <span className="text-3xl font-bold">{gamePoints[curPoint].n}</span>
-                    {/* <span className='block text-sm flex justify-center gap-2'><a>Resetuj</a> <a>Zmień tryb</a></span> */}
                 </div>
             }
 
@@ -357,7 +350,7 @@ export const GeoTest = params => {
                     <span className='block text-sm flex justify-center gap-2'>
                         <a onClick={() => skip()}>Skip</a>
                     </span>
-                    {skippedPoint && <span className='text-sm'>Pominięty punkt to {skippedPoint}</span>}
+                    {skippedPoint && <span className='text-sm'>Pominięty punkt to {skippedPoint}. Wpisz aby przejść dalej</span>}
                 </div>
             }
 
@@ -373,7 +366,9 @@ export const GeoTest = params => {
                 </div>)
             } 
             
-            <Map
+            <TestCanvas points={editMode ? points : gamePoints} handleClick={handleClick} mapUrl={params.imageURL} pointSize={params.pointSize} />
+
+            {/* <Map
                 image={params.imageURL}
                 // onClick={handleMapClick}
             >
@@ -387,7 +382,7 @@ export const GeoTest = params => {
                         />
                     ))
                 }
-            </Map>
+            </Map> */}
         </div>
     )
 }

@@ -15,6 +15,7 @@ import {User} from "./pages/User";
 import {Creator} from "./components/Creator";
 import {Test} from "./pages/Test";
 import {CustomTest} from "./pages/CustomTest";
+import TestCanvas from "./pages/TestCanvas"
 
 const router = createBrowserRouter([
     {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
     {
         path: "/create",
         element: <Creator />,
+    },
+    {
+        path: "/test-canvas",
+        element: <TestCanvas />,
     },
 ]);
 

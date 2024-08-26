@@ -1,0 +1,4 @@
+- rewrite canvas map to konva, add mobile support for zooming and moving
+- upgrade mobile experience
+- save idk I forgot what I had wanted to write
+- add query with current active points
