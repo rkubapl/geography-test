@@ -56,20 +56,20 @@ export default function TestCanvas(props) {
         var touch2 = e.evt.touches[1];
 
         // we need to restore dragging, if it was cancelled by multi-touch
-        if (touch1 && !touch2 && !st.isDragging()) { //&& dragStopped
-            st.startDrag();
-            setDragStopped(false);
-        }
+        // if (touch1 && !touch2 && !st.isDragging()) { //&& dragStopped
+        //     st.startDrag();
+        //     setDragStopped(false);
+        // }
 
         if (touch1 && touch2) {
             // if the stage was under Konva's drag&drop
             // we need to stop it, and implement our own pan logic with two pointers
             // alert(st.isDragging())
 
-            if (st.isDragging()) {
-              setDragStopped(true);
-              st.stopDrag();
-            }
+            // if (st.isDragging()) {
+            //   setDragStopped(true);
+            //   st.stopDrag();
+            // }
 
             var p1 = {
               x: touch1.clientX,
@@ -179,7 +179,7 @@ export default function TestCanvas(props) {
         <>
             <Stage width={window.innerWidth} height={window.innerHeight} onTouchMove={touchmove} onTouchEnd={touchend} onWheel={wheel} ref={stage} scaleY={stagePos.scale} scaleX={stagePos.scale} x={stagePos.x} y={stagePos.y}>
                 <Layer x={mapProps.x} y={mapProps.y} >
-                    <Image image={mapImage} height={mapProps.height} width={mapProps.width} />
+                    <Image image={mapImage} height={mapProps.height} width={mapProps.width} draggable={false} />
                     {points.map((point, index) => (
                       <Circle 
                         id={`point-${index}`}
@@ -188,10 +188,11 @@ export default function TestCanvas(props) {
                         radius={pointSize*scale*(point.state == "superhighlight" ? 2 : 1)} 
                         fill={getColor(point.state)}
                         stroke="black" 
-                        strokeWidth={4} 
+                        strokeWidth={4*scale} 
                         onMouseEnter={() => mouseEnter(index)} 
                         onMouseLeave={() => mouseLeave(index)} 
                         onClick={evt => handleClick(index, evt)}
+                        onTouchStart={evt => handleClick(index, evt)}
                       />
                     ))}
                     {/* <Line points={[5, 70, 140, 23, 250, 60, 300, 20]} stroke='red' strokeWidth={15} /> */}
