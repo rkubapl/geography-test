@@ -157,8 +157,7 @@ export const GeoTest = params => {
                 if(invalidAttempts > 2) return
 
                 if(invalidAttempts == 2) {
-                    setGamePoints(prevPoints => prevPoints.map(p => p.state == "highlight" ? {...p, state: undefined} : p)) //clear highlighted points
-
+                    updateState(index, "highlight")
                     updateState(curPoint, "superhighlight")
                 } else {
                     updateState(index, "highlight")
