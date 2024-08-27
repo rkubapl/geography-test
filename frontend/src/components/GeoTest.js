@@ -240,7 +240,7 @@ export const GeoTest = params => {
 
     function reset(trueReset) {
         setGamePoints(prevPoints => {
-            if(pointsBeforeImprove != undefined) {
+            if(trueReset && pointsBeforeImprove) {
                 console.log("FOUND POINTS!!!!")   
                 prevPoints = pointsBeforeImprove;
             }
