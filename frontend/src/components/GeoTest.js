@@ -184,7 +184,7 @@ export const GeoTest = params => {
         const { value } = e.target;
         
         if(normalizeString(value) === normalizeString(gamePoints[curPoint].n)) {
-            if(gamePoints[curPoint].state == "highlight") {
+            if(skippedPoint != null) {
                 updateState(curPoint, "invalid")
             } else updateState(curPoint, "correct")
 
@@ -240,7 +240,7 @@ export const GeoTest = params => {
 
     function reset(trueReset) {
         setGamePoints(prevPoints => {
-            if(pointsBeforeImprove != undefined) {
+            if(trueReset && pointsBeforeImprove) {
                 console.log("FOUND POINTS!!!!")   
                 prevPoints = pointsBeforeImprove;
             }
