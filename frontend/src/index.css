@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/*code {*/
+/*  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',*/
+/*    monospace;*/
+/*}*/
+
+table {
+  border-collapse: collapse;
+  border-collapse: collapse;
+
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+table,th,td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+
+a, .link, .link:visited {
+  color: #0077b6;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/*button {*/
+/*  background-color: #639fff;*/
+/*  color: #FFF;*/
+/*  padding: 10px 25px;*/
+/*  border-radius: 8px;*/
+/*  border: 0;*/
+/*  font-size: .95rem;*/
+/*}*/
