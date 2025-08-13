@@ -184,14 +184,14 @@ export const GeoTest = params => {
         const { value } = e.target;
         
         if(normalizeString(value) === normalizeString(gamePoints[curPoint].n)) {
-            if(skippedPoint != null) {
+            if(skippedPoint != undefined) {
                 updateState(curPoint, "invalid")
             } else updateState(curPoint, "correct")
 
             setInputValue("")
 
             if(curPoint+1 < gamePoints.length) {
-                setSkippedPoint("")
+                setSkippedPoint(undefined)
                 setCurPoint(prevState => prevState+1);
                 updateState(curPoint+1, "highlight")
             } else {
@@ -347,7 +347,7 @@ export const GeoTest = params => {
                 <div className={`card`} >
                     <input id="input" className="w-full h-7 rounded-lg border-gray-600 border-2" placeholder="Wpisz niebieski punkt" value={inputValue} onChange={handleInputChange} />
                     <span className='block text-sm flex justify-center gap-2'>
-                        <a onClick={() => skip()}>Skip</a>
+                        <a onClick={() => skip()}>Pomiń</a>
                     </span>
                     {skippedPoint && <span className='text-sm'>Pominięty punkt to {skippedPoint}. Wpisz aby przejść dalej</span>}
                 </div>
